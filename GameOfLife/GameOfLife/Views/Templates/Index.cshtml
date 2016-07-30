@@ -1,0 +1,80 @@
+﻿@model IEnumerable<GameOfLife.Models.Template>
+
+@{
+    ViewBag.Title = ViewBag.Context + "Templates";
+}
+
+<script src="~/Scripts/paintGame.js"></script>
+
+<div class="row">
+    <div class="col-md-6 col-sm-10 col-md-offset-3 col-sm-offset-1">
+        <form action="/Templates/@ViewBag.Context" method="get">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control input-lg search-box" placeholder="Search..." value="@ViewBag.SearchTerm">
+                <span class="input-group-btn">
+                    <button class="btn btn-default btn-lg" type="button">Search</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        @Html.ActionLink("Create New", "Create", new { userId = ViewBag.userId }, new { @class = "btn btn-success pull-right" })
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="templates grid">
+            <div class="grid-sizer"></div>
+            <div class="grid-gutter-sizer"></div>
+            @foreach (var template in Model)
+            {
+                <div class="grid-item @(@template.Width / @template.Height >= 2 ? "grid-item--width2" : "")">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">@Html.DisplayFor(modelItem => template.Name)</h2>
+                        </div>
+                        <div class="panel-body">
+
+                            <canvas id="template-@template.Id"></canvas>
+                            <div class="template-details-overlay">
+                                <div class="template-details">
+                                    God: @template.User.UserName<br />
+                                    Height: @template.Height<br />
+                                    Width: @template.Width
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                paintGame("#template-@template.Id", @template.Height, @template.Width, "@template.Cells");
+                                $(window).on('resize', function () {
+                                    paintGame("#template-@template.Id", @template.Height, @template.Width, "@template.Cells");
+                                });
+                            </script>
+                        </div>
+                        <div class="panel-footer">
+                            @Html.ActionLink("PLAY", "Play", new { id = template.Id }, new { @class = "btn btn-success btn-lg btn-block" })
+
+                            @Html.DisplayFor(modelItem => template.Height) x @Html.DisplayFor(modelItem => template.Width)
+                            @Html.ActionLink("Edit", "Edit", new { id = template.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = template.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = template.Id })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.panel').on('mouseenter', function() {
+        console.log($(this));
+        $(this).find('.template-details-overlay').fadeIn(200)
+    });
+    $('.panel').on('mouseleave', function() {
+        $(this).find('.template-details-overlay').fadeOut(200)
+    });
+</script>

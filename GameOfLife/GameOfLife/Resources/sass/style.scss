@@ -1,6 +1,81 @@
 ﻿@import "bootstrap-sass/assets/stylesheets/bootstrap/variables";
-@import "bootswatch-sass/darkly/variables";
+@import "variables";
 @import "bootstrap-sass/assets/stylesheets/bootstrap";
-@import "bootswatch-sass/darkly/bootswatch";
+@import "bootswatch";
 @import "font-awesome/scss/font-awesome";
 
+@import url(https://fonts.googleapis.com/css?family=Cinzel);
+@import url(https://fonts.googleapis.com/css?family=Bungee+Shade);
+
+$font-family-serif: 'Bungee Shade';
+
+/* Font Styling */
+h1 {
+    font-size: 6rem;
+    text-align: center;
+}
+
+/* Bootstrap Changes */ 
+.body-content {
+    padding-top: 60px;
+}
+.btn-lg {
+    height: 64px;
+}
+.row {
+    padding-bottom: 20px;
+}
+
+/* Templates Styling */
+.templates {
+    .panel {
+	    margin: 0;
+        .panel-body {
+            position: relative;
+            .template-details-overlay {
+                display: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.9);
+                padding: 20px 0 0 20px;
+            }
+        }
+    }
+}
+
+/* Masonry Styling */
+.grid-gutter-sizer {
+	width: 2%;
+}
+@media only screen and (min-width: 992px) {
+    $grid-item-width: 23.5%;
+    $grid-gutter: 2%;
+	.grid-sizer,
+	.grid-item {
+		width: $grid-item-width;
+	}
+    .grid-item--width2 { 
+        width:  $grid-item-width * 2 + $grid-gutter;
+    }
+}
+@media only screen and (max-width: 992px) {
+    $grid-item-width: 32%;
+    $grid-gutter: 2%;
+	.grid-sizer,
+	.grid-item {
+		width: $grid-item-width;
+	}
+    .grid-item--width2 { 
+        width:  $grid-item-width * 2 + $grid-gutter;
+    }
+}
+@media only screen and (max-width: 768px) {
+    $grid-item-width: 100%;
+	.grid-sizer,
+	.grid-item {
+		width: $grid-item-width;
+	}
+}

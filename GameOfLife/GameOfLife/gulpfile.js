@@ -1,4 +1,5 @@
-﻿var gulp = require('gulp'),
+/// <binding AfterBuild='default' ProjectOpened='watch' />
+var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     notify = require("gulp-notify"),
     concat = require('gulp-concat'),
@@ -31,11 +32,12 @@ gulp.task('sass', function () {
 
 gulp.task('js', function () {
     return gulp.src([
+        path.custom + '/js/libs/*.js',
         path.custom + '/js/*.js',
         path.lib + '/bootstrap-sass/assets/javascripts/bootstrap.js'
     ])
         .pipe(concat('script.min.js'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest(path.public_js));
 });
 
