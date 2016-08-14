@@ -1,26 +1,105 @@
-﻿@{
+﻿@model IEnumerable<GameOfLife.Models.Template>
+
+@{
     ViewBag.Title = "Home";
 }
 
-<h1 style="font-family:'Bungee Shade'; font-size:160px;">Game<span style="font-size:80px;"> of </span>Life</h1>
+<div id="overlay">
+    <div id="part1" class="page-center" style="display:none;"><h1>The ultimate game...</h1></div>
 
-<div class="jumbotron">
-    <p>@User.Identity.Name</p>
+    <div id="part2" class="page-center" style="display:none;"><h1>of life vs. death...</h1></div>
+
+    <div id="part3" class="page-center" style="display:none;">
+        <div class="title">
+            <div>Conway's</div>
+            <div>Game</div>
+            <div>of</div>
+            <div>Life</div>
+        </div>
+
+        <div class="text-center">
+            <a id="begin" class="btn btn-lg btn-success" role="button">BEGIN</a>
+        </div>
+    </div>
+
+    <a id="skip" class="alink">skip...</a>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Templates</h2>
-        @Html.ActionLink("Templates", "Index", "Templates", null, new { @class = "btn btn-default" })
+    <div class="col-md-6">
+        <div class="title">
+            <div>Conway's</div>
+            <div>Game</div>
+            <div>of</div>
+            <div>Life</div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-md-6">
+        <p>Players: 0</p>
+        <p>Difficulty: 0</p>
+        <p>The game is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Game of Life by creating an initial configuration and observing how it evolves, or, for advanced players, by creating patterns with particular properties</p>
+        <a href="/Rules">Rules</a>
     </div>
 </div>
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <h1>Templates</h1>
+    </div>
+</div>
+
+@{
+    ViewData["btnA"] = new[] { "LOAD", "Load", "Games" };
+}
+
+@Html.Partial("~/Views/Shared/_Grid.cshtml", ViewData.Model, ViewData)
+
+@*<div class="quote">
+    This is a quote, about life or something. Life blah yo yeah cool.
+</div>*@
+
+
+<script>
+    var skip = true;
+
+    @if (Request.Cookies["skip"] == null)
+    {
+        <text>
+        var skip = false;
+        </text>
+        Response.Cookies["skip"].Value = "1";
+        //Response.Cookies["skip"].Expires = DateTime.Now.AddDays(1);
+    }
+
+    if (skip)
+    {
+        $("#overlay").hide();
+    }
+
+    $("#skip").click(function (e) {
+        e.preventDefault();
+        hideOverlay();
+    });
+
+    $("#begin").click(function (e) {
+        e.preventDefault();
+        hideOverlay();
+    });
+
+    function hideOverlay() {
+        $("#overlay").fadeOut(1000);
+    }
+
+    $(document).ready(function () {
+        $("#part1").hide().delay(1000).fadeIn(2000).fadeOut(2000);
+        $("#part2").hide().delay(5000).fadeIn(2000).fadeOut(2000);
+        $("#part3").hide().delay(9000).fadeIn(2000);
+        setInterval(function () {
+            $("#overlay").animate({
+                backgroundColor: "#fff"
+            }, 500);
+        }, 9000);
+    });
+    //$("#title").fitText();
+</script>

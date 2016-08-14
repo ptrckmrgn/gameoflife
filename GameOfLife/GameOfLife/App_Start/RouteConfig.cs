@@ -20,6 +20,18 @@ namespace GameOfLife
             //);
 
             routes.MapRoute(
+                name: "ActiveDelete",
+                url: "Games/Active/Delete/{sessionId}",
+                defaults: new { controller = "Games", action = "DeleteActive", sessionId = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Rules",
+                url: "Rules",
+                defaults: new { controller = "Home", action = "Rules" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Attributes;
+using FluentValidation.Results;
 using System.ComponentModel.DataAnnotations;
 
 namespace GameOfLife.Models
@@ -13,15 +14,17 @@ namespace GameOfLife.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
+        [Required, Range(1, 100)]
         public int Height { get; set; }
 
-        [Required]
+        [Required, Range(1, 100)]
         public int Width { get; set; }
 
         [Required]
+        [DataType(DataType.MultilineText)]
         public string Cells { get; set; }
-        
+
+        //[Required]
         public virtual ApplicationUser User { get; set; }
     }
 
@@ -29,8 +32,14 @@ namespace GameOfLife.Models
     {
         public TemplateValidator()
         {
-            RuleFor(template => template.Cells).Length(template => template.Height * template.Width).WithMessage("Incorrect number of cells.");
-            RuleFor(template => template.Name).Must(template => template.Contains("abc")).WithMessage("ABC!!!");
+            RuleFor(template => template.Cells)
+                .Must((template, cells) => cells.Length == template.Height * template.Width)
+                .WithMessage("There must be exactly {0} cells.", template => template.Height * template.Width);
+        }
+
+        private bool BeValidLength(Template template, int height, int width)
+        {
+            return template.Cells.Length == template.Height * template.Width;
         }
     }
 }

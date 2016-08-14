@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GameOfLife.Models;
+using System;
+using System.Data;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,22 +11,24 @@ namespace GameOfLife.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        public ActionResult Index(string search)
         {
-            return View();
+            IQueryable<Template> templates = db.Templates.Include(u => u.User);
+
+            if (!String.IsNullOrWhiteSpace(search))
+            {
+                templates = templates.Where(t => t.Name.Contains(search));
+            }
+
+            ViewBag.SearchTerm = search;
+
+            return View(templates);
         }
 
-        public ActionResult About()
+        public ActionResult Rules()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

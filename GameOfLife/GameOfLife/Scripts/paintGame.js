@@ -6,7 +6,7 @@ function paintGame(element, height, width, cells) {
     var canvas = $(element);
 
     // get correct dimensions from parent elements
-    var canvasWidth = parseInt(canvas.closest('.grid-item').css('width'), 10) - parseInt(canvas.closest('.panel-body').css('padding'), 10) * 2;
+    var canvasWidth = parseInt(canvas.parent().css('width'), 10) - parseInt(canvas.parent().css('padding-left'), 10) - parseInt(canvas.parent().css('padding-right'), 10);
     var canvasHeight = canvasWidth * (height / width);
 
     // set canvas dimensions

@@ -12,11 +12,13 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace GameOfLife.Controllers
 {
+    [Authorize]
     public class TemplatesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Templates
+        [AllowAnonymous]
         public ActionResult Index(string search)
         {
             IQueryable<Template> templates = db.Templates.Include(u => u.User);
@@ -27,27 +29,12 @@ namespace GameOfLife.Controllers
             }
 
             ViewBag.SearchTerm = search;
+            ViewBag.Count = templates.Count();
 
             return View(templates);
         }
 
-        // GET: Templates/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Template template = db.Templates.Find(id);
-            if (template == null)
-            {
-                return HttpNotFound();
-            }
-            return View(template);
-        }
-
         // GET: Templates/Create
-        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -62,12 +49,16 @@ namespace GameOfLife.Controllers
             {
                 // Assign user
                 string userId = User.Identity.GetUserId();
-                ApplicationUser user = db.Users.FirstOrDefault(x => x.Id == userId);
+                ApplicationUser user = db.Users.Find(userId);
                 template.User = user;
 
+                // Convert cells to uppercase for consistency
+                template.Cells = template.Cells.ToUpper(); 
+
+                // Save template
                 db.Templates.Add(template);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyTemplates");
             }
 
             return View(template);
@@ -99,7 +90,7 @@ namespace GameOfLife.Controllers
             {
                 db.Entry(template).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyTemplates");
             }
             return View(template);
         }
@@ -116,6 +107,14 @@ namespace GameOfLife.Controllers
             {
                 return HttpNotFound();
             }
+
+            // Check user is authorized to delete
+            string userId = User.Identity.GetUserId();
+            if (template.User.Id != userId)
+            {
+                return RedirectToAction("Forbidden", "Error");
+            }
+
             return View(template);
         }
 
@@ -125,18 +124,19 @@ namespace GameOfLife.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Template template = db.Templates.Find(id);
+            
+            // Check user is authorized to delete
+            string userId = User.Identity.GetUserId();
+            if (template.User.Id != userId)
+            {
+                return RedirectToAction("Forbidden", "Error");
+            }
+
+            // Delete
             db.Templates.Remove(template);
             db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return RedirectToAction("MyTemplates");
         }
 
         // GET: Templates/MyTemplates
@@ -150,10 +150,19 @@ namespace GameOfLife.Controllers
                 templates = templates.Where(t => t.Name.Contains(search));
             }
 
-            ViewBag.Context = "MyTemplates";
             ViewBag.SearchTerm = search;
+            ViewBag.Count = templates.Count();
 
-            return View("Index", templates);
+            return View(templates);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

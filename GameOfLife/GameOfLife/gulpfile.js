@@ -1,4 +1,4 @@
-/// <binding AfterBuild='default' ProjectOpened='watch' />
+/// <binding ProjectOpened='watch' />
 var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     notify = require("gulp-notify"),
@@ -21,7 +21,7 @@ var path = {
 
 gulp.task('sass', function () {
     return sass(path.custom + '/sass/*.scss', {
-        style: 'compressed',
+        //style: 'compressed',
         loadPath: path.lib
     }).on("error", notify.onError(function (error) {
         return "Error: " + error.message;

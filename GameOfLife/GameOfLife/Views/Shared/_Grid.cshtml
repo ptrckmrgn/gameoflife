@@ -1,0 +1,77 @@
+﻿<script src="~/Scripts/paintGame.js"></script>
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewBag.Count != 0)
+        {
+            <div class="templates grid">
+                <div class="grid-sizer"></div>
+                <div class="grid-gutter-sizer"></div>
+                @{ int i = 0; }   
+                @foreach (var item in Model)
+                {
+                    if (item.Id == 0)
+                    {
+                        item.Id = i;
+                    }
+                    i++;
+                    <div class="grid-item @(@item.Width / @item.Height >= 2 ? "grid-item--width2" : "")">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">@item.Name</h2>
+                            </div>
+                            <div class="panel-body">
+
+                                <canvas id="template-@item.Id"></canvas>
+                                <div class="template-details-overlay">
+                                    <div class="template-details">
+                                        Creator: @item.User.UserName<br />
+                                        Height: @item.Height<br />
+                                        Width: @item.Width
+                                    </div>
+                                </div>
+                                <script type="text/javascript">
+                                    paintGame("#template-@item.Id", @item.Height, @item.Width, "@item.Cells");
+                                    $(window).on('resize', function () {
+                                        paintGame("#template-@item.Id", @item.Height, @item.Width, "@item.Cells");
+                                    });
+                                </script>
+                            </div>
+                            <div class="panel-footer">
+                                @{
+                                    var btnA = (string[])ViewData["btnA"];
+                                    var btnB = (string[])ViewData["btnB"];
+                                    var btnC = (string[])ViewData["btnC"];
+                                }
+
+                                @Html.ActionLink(btnA[0], btnA[1], btnA[2], new { id = item.Id }, new { @class = "btn btn-success btn-lg btn-block" })
+                                @if (btnB != null)
+                                {
+                                    @Html.ActionLink(btnB[0], btnB[1], btnB[2], new { id = item.Id }, null)
+                                }
+                                @if (btnC != null)
+                                {
+                                    @:| @Html.ActionLink(btnC[0], btnC[1], btnC[2], new { id = item.Id }, null)
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <h2 class="pull-center">Nothing here...</h2>
+        }
+    </div>
+</div>
+
+<script>
+    $('.panel').on('mouseenter', function() {
+        console.log($(this));
+        $(this).find('.template-details-overlay').fadeIn(200)
+    });
+    $('.panel').on('mouseleave', function() {
+        $(this).find('.template-details-overlay').fadeOut(200)
+    });
+</script>

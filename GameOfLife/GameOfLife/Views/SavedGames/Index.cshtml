@@ -1,0 +1,12 @@
+﻿@model IEnumerable<GameOfLife.Models.Game>
+
+@{
+    ViewBag.Title = "Saved Games";
+}
+
+@{
+    ViewData["btnA"] = new[] { "LOAD", "Reload", "SavedGames" };
+    ViewData["btnB"] = new[] { "Unsave", "Delete", "SavedGames" };
+}
+
+@Html.Partial("~/Views/Shared/_Grid.cshtml", ViewData.Model, ViewData)

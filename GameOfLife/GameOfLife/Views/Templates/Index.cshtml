@@ -25,56 +25,7 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="templates grid">
-            <div class="grid-sizer"></div>
-            <div class="grid-gutter-sizer"></div>
-            @foreach (var template in Model)
-            {
-                <div class="grid-item @(@template.Width / @template.Height >= 2 ? "grid-item--width2" : "")">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h2 class="panel-title">@Html.DisplayFor(modelItem => template.Name)</h2>
-                        </div>
-                        <div class="panel-body">
-
-                            <canvas id="template-@template.Id"></canvas>
-                            <div class="template-details-overlay">
-                                <div class="template-details">
-                                    God: @template.User.UserName<br />
-                                    Height: @template.Height<br />
-                                    Width: @template.Width
-                                </div>
-                            </div>
-                            <script type="text/javascript">
-                                paintGame("#template-@template.Id", @template.Height, @template.Width, "@template.Cells");
-                                $(window).on('resize', function () {
-                                    paintGame("#template-@template.Id", @template.Height, @template.Width, "@template.Cells");
-                                });
-                            </script>
-                        </div>
-                        <div class="panel-footer">
-                            @Html.ActionLink("PLAY", "Play", new { id = template.Id }, new { @class = "btn btn-success btn-lg btn-block" })
-
-                            @Html.DisplayFor(modelItem => template.Height) x @Html.DisplayFor(modelItem => template.Width)
-                            @Html.ActionLink("Edit", "Edit", new { id = template.Id }) |
-                            @Html.ActionLink("Details", "Details", new { id = template.Id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = template.Id })
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-</div>
-
-<script>
-    $('.panel').on('mouseenter', function() {
-        console.log($(this));
-        $(this).find('.template-details-overlay').fadeIn(200)
-    });
-    $('.panel').on('mouseleave', function() {
-        $(this).find('.template-details-overlay').fadeOut(200)
-    });
-</script>
+@{
+    ViewData["btnA"] = new[] { "LOAD", "Load", "Games" };
+}
+@Html.Partial("~/Views/Shared/_Grid.cshtml", ViewData.Model, ViewData)

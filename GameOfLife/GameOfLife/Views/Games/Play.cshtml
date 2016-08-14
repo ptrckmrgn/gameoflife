@@ -1,0 +1,60 @@
+﻿@model GameOfLife.Models.Game
+
+@{
+    ViewBag.Title = "Play";
+}
+
+<script src="~/Scripts/paintGame.js"></script>
+
+<h2>Play</h2>
+
+<a href="" id="play-game" class="btn btn-primary">Start</a>
+<a href="" id="stop-game" class="btn btn-primary disabled">Stop</a>
+
+Speed <input id="speed" type="range" />
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <canvas id="game"></canvas>
+        <script type="text/javascript">
+            paintGame("#game", @Model.Height, @Model.Width, "@Model.Cells");
+            $(window).on('resize', function () {
+                paintGame("#game", @Model.Height, @Model.Width, "@Model.Cells");
+            });
+        </script>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function()
+    {
+        var play = $("#play-game"),
+            stop = $("#stop-game"),
+            speed = $('#speed').val(),
+            intervalID;
+
+        play.click(function(e)
+        {
+            e.preventDefault();
+            play.addClass("disabled");
+            stop.removeClass("disabled");
+
+            intervalID = setInterval(function()
+            {
+                $.post("@Url.Action("PlayTurn", new { id = Url.RequestContext.RouteData.Values["id"] })", function(data)
+                {
+                    paintGame("#game", @Model.Height, @Model.Width, data);
+                });
+            }, 1000);
+        });
+
+        stop.click(function(e)
+        {
+            e.preventDefault();
+            play.removeClass("disabled");
+            stop.addClass("disabled");
+
+            clearInterval(intervalID);
+        });
+    });
+</script>

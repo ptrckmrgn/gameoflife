@@ -17,6 +17,9 @@ namespace GameOfLife.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public virtual ICollection<Template> Templates { get; set; }
+        public virtual ICollection<Game> Games { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -32,5 +35,6 @@ namespace GameOfLife.Models
         }
 
         public DbSet<Template> Templates { get; set; }
+        public DbSet<Game> Games { get; set; }
     }
 }
