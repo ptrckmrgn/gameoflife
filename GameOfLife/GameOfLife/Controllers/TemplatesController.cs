@@ -9,11 +9,12 @@ using System.Web.Mvc;
 using GameOfLife.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Newtonsoft.Json;
 
 namespace GameOfLife.Controllers
 {
     [Authorize]
-    public class TemplatesController : Controller
+    public class TemplatesController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -37,19 +38,19 @@ namespace GameOfLife.Controllers
         // GET: Templates/Create
         public ActionResult Create()
         {
+            ViewBag.UserId = User.Identity.GetUserId();
             return View();
         }
 
         // POST: Templates/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Height,Width,Cells")] Template template)
+        public ActionResult Create([Bind(Include = "Name,Height,Width,Cells,UserId")] Template template)
         {
             if (ModelState.IsValid)
             {
                 // Assign user
-                string userId = User.Identity.GetUserId();
-                ApplicationUser user = db.Users.Find(userId);
+                ApplicationUser user = db.Users.Find(template.UserId);
                 template.User = user;
 
                 // Convert cells to uppercase for consistency
@@ -76,6 +77,7 @@ namespace GameOfLife.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.UserId = User.Identity.GetUserId();
             return View(template);
         }
 
@@ -84,10 +86,14 @@ namespace GameOfLife.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Height,Width,Cells")] Template template)
+        public ActionResult Edit([Bind(Include = "Id,Name,Height,Width,Cells,UserId")] Template template)
         {
             if (ModelState.IsValid)
             {
+                // Assign user
+                ApplicationUser user = db.Users.Find(template.UserId);
+                template.User = user;
+
                 db.Entry(template).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("MyTemplates");
@@ -140,17 +146,11 @@ namespace GameOfLife.Controllers
         }
 
         // GET: Templates/MyTemplates
-        public ActionResult MyTemplates(string search)
+        public ActionResult MyTemplates()
         {
             string userId = User.Identity.GetUserId();
             IQueryable<Template> templates = db.Templates.Include(u => u.User).Where(u => u.User.Id == userId);
 
-            if (!String.IsNullOrWhiteSpace(search))
-            {
-                templates = templates.Where(t => t.Name.Contains(search));
-            }
-
-            ViewBag.SearchTerm = search;
             ViewBag.Count = templates.Count();
 
             return View(templates);

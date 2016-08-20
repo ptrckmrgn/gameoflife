@@ -13,7 +13,7 @@
 </head>
 <body>
     <form id="form1" method="post" enctype="multipart/form-data" runat="server">
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -21,7 +21,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">Application name</a>
+                    <a class="navbar-brand" runat="server" href="~/Admin/Users.aspx">Admin Area</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -29,16 +29,15 @@
                         <li><a runat="server" href="~/Admin/Templates.aspx">Templates</a></li>
                         <li><a runat="server" href="~/Admin/Upload.aspx">Upload</a></li>
                     </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><asp:LinkButton OnClick="LogOff" runat="server">Log off</asp:LinkButton></li>
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
-            </footer>
         </div>
     </form>
 </body>

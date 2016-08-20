@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace GameOfLife.Controllers
 {
-    public class ErrorController : Controller
+    public class ErrorController : BaseController
     {
         // TODO : Error pages
 

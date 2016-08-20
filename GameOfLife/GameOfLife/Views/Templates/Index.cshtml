@@ -1,27 +1,28 @@
 ﻿@model IEnumerable<GameOfLife.Models.Template>
 
 @{
-    ViewBag.Title = ViewBag.Context + "Templates";
+    ViewBag.Title = "Templates";
 }
 
-<script src="~/Scripts/paintGame.js"></script>
-
 <div class="row">
-    <div class="col-md-6 col-sm-10 col-md-offset-3 col-sm-offset-1">
-        <form action="/Templates/@ViewBag.Context" method="get">
-            <div class="input-group">
-                <input type="text" name="search" class="form-control input-lg search-box" placeholder="Search..." value="@ViewBag.SearchTerm">
-                <span class="input-group-btn">
-                    <button class="btn btn-default btn-lg" type="button">Search</button>
-                </span>
-            </div>
-        </form>
+    <div class="col-md-9">
+        <h1>Templates</h1>
+        <div class="sub-heading">Load a pre-made template or create your own</div>
+    </div>
+    <div class="col-md-3">
+        @Html.ActionLink("Create New", "Create", "Templates", null, new { @class = "btn btn-lg btn-danger pull-right" })
     </div>
 </div>
 
+<div class="spacer-2"></div>
+
 <div class="row">
-    <div class="col-xs-12">
-        @Html.ActionLink("Create New", "Create", new { userId = ViewBag.userId }, new { @class = "btn btn-success pull-right" })
+    <div class="col-md-12">
+        <form action="/Templates" method="get">
+            <div class="form-group">
+                <input type="text" name="search" class="form-control input-lg search-box" placeholder="Search..." value="@ViewBag.SearchTerm">
+            </div>
+        </form>
     </div>
 </div>
 
@@ -29,3 +30,22 @@
     ViewData["btnA"] = new[] { "LOAD", "Load", "Games" };
 }
 @Html.Partial("~/Views/Shared/_Grid.cshtml", ViewData.Model, ViewData)
+
+<script>
+    @if (Request.Cookies["clouds"] == null)
+    {
+        Response.Cookies["clouds"].Value = "1";
+
+        <text>
+        $(document).ready(function () {
+            $("#cloud1").css('left', 0).css('z-index', 999).animate({ "left": "-1400px" }, 1800, 'swing');
+            $("#cloud2").css('left', 0).css('z-index', 999).animate({ "left": "-1000px" }, 2500, 'swing');
+            $("#cloud3").css('right', 0).css('z-index', 999).animate({ "right": "-1100px" }, 1400, 'swing');
+            $("#cloud4").css('right', 0).css('z-index', 999).animate({ "right": "-1400px" }, 2200, 'swing');
+            setInterval(function () {
+                $(".clouds").css('z-index', 0);
+            }, 2500)
+        });
+        </text>
+    }
+</script>

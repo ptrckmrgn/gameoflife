@@ -13,7 +13,7 @@ using GameOfLife.Models;
 namespace GameOfLife.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -68,6 +68,19 @@ namespace GameOfLife.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            // Get username from inputted email
+            ApplicationUser user = null;
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                try
+                {
+                    user = db.Users.Single(u => u.Email.Equals(model.Email));
+                }
+                catch
+                { }
+            }
+            var userName = (user != null ? user.UserName : model.Email);
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -75,7 +88,9 @@ namespace GameOfLife.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
+            var result = await SignInManager.PasswordSignInAsync(userName, model.Password, model.RememberMe, shouldLockout: false);
+                
             switch (result)
             {
                 case SignInStatus.Success:
@@ -86,7 +101,14 @@ namespace GameOfLife.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    if (user == null) // Email not recognised
+                    {
+                        ModelState.AddModelError("", "Sorry, that email doesn't appear to exist in our records.");
+                    }
+                    else // Password not recognised
+                    {
+                        ModelState.AddModelError("", "Sorry, that password doesn't appear to be correct.");
+                    }
                     return View(model);
             }
         }
@@ -151,7 +173,7 @@ namespace GameOfLife.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -163,7 +185,7 @@ namespace GameOfLife.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Templates");
                 }
                 AddErrors(result);
             }
@@ -392,7 +414,7 @@ namespace GameOfLife.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Templates");
         }
 
         //
@@ -449,7 +471,7 @@ namespace GameOfLife.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Templates");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

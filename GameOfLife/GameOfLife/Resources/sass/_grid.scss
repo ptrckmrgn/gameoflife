@@ -1,0 +1,88 @@
+﻿/**************************************
+* PAGE: Templates
+**************************************/
+
+.templates {
+    .panel {
+	    margin: 0;
+        border-radius: 0;
+        .panel-heading {
+            text-align: center;
+            .panel-title {
+                padding: 5px 0 0 0;
+                font-size: 26px;
+            }
+            .sub-heading {
+                padding: 5px 0 0 0;
+                font-size: 1.5rem;
+            }
+        }
+        .panel-body {
+            position: relative;
+            padding: 2px;
+            margin-bottom: -6px;
+            canvas {
+                width: 100%;
+            }
+            .template-details-overlay {
+                font-size: 20px;
+                display: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: calc(100% - 6px);
+                background: rgba(0,0,0,0.9);
+                padding: 20px 0 0 20px;
+            }
+        }
+        .panel-footer {
+            padding: 0;
+            .btn {
+                border-radius: 0;
+            }
+        }
+    }
+}
+
+#write-template {
+    width: 100%;
+    cursor: pointer;
+}
+
+/**************************************
+* MASONRY
+**************************************/
+
+.grid-gutter-sizer {
+	width: 2%;
+}
+@media only screen and (min-width: 992px) {
+    $grid-item-width: 23.5%;
+    $grid-gutter: 2%;
+	.grid-sizer,
+	.grid-item {
+		width: $grid-item-width;
+	}
+    .grid-item--width2 { 
+        width:  $grid-item-width * 2 + $grid-gutter;
+    }
+}
+@media only screen and (max-width: 992px) {
+    $grid-item-width: 32%;
+    $grid-gutter: 2%;
+	.grid-sizer,
+	.grid-item {
+		width: $grid-item-width;
+	}
+    .grid-item--width2 { 
+        width:  $grid-item-width * 2 + $grid-gutter;
+    }
+}
+@media only screen and (max-width: 768px) {
+    $grid-item-width: 100%;
+	.grid-sizer,
+	.grid-item {
+		width: $grid-item-width;
+	}
+}

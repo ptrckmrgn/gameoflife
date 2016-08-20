@@ -24,7 +24,7 @@ namespace GameOfLife.Models
         [DataType(DataType.MultilineText)]
         public string Cells { get; set; }
 
-        [ForeignKey("User")]
+        [Required]
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }

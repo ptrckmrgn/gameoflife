@@ -8,6 +8,22 @@ namespace GameOfLife.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.Games",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                        Height = c.Int(nullable: false),
+                        Width = c.Int(nullable: false),
+                        Cells = c.String(nullable: false),
+                        UserId = c.String(maxLength: 128),
+                        PlayerId = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId);
+            
+            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
@@ -66,6 +82,21 @@ namespace GameOfLife.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.Templates",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                        Height = c.Int(nullable: false),
+                        Width = c.Int(nullable: false),
+                        Cells = c.String(nullable: false),
+                        UserId = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -75,56 +106,26 @@ namespace GameOfLife.Migrations
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
-            CreateTable(
-                "dbo.Templates",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
-                        Height = c.Int(nullable: false),
-                        Width = c.Int(nullable: false),
-                        Cells = c.String(nullable: false),
-                        User_Id = c.String(maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
-                .Index(t => t.User_Id);
-
-            CreateTable(
-                "dbo.Games",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    Name = c.String(nullable: false),
-                    Height = c.Int(nullable: false),
-                    Width = c.Int(nullable: false),
-                    Cells = c.String(nullable: false),
-                    PlayerId = c.String(),
-                    User_Id = c.String(maxLength: 128),
-                })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
-                .Index(t => t.User_Id);
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Templates", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Games", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Templates", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Games", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropIndex("dbo.Templates", new[] { "User_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Templates", new[] { "UserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Games", new[] { "User_Id" });
-            DropTable("dbo.Templates");
+            DropIndex("dbo.Games", new[] { "UserId" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Templates");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");

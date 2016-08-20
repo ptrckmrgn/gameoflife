@@ -13,22 +13,13 @@ namespace GameOfLife.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Index(string search)
+        public ActionResult Index(bool? redirect)
         {
-            IQueryable<Template> templates = db.Templates.Include(u => u.User);
-
-            if (!String.IsNullOrWhiteSpace(search))
+            if (redirect.HasValue && redirect.Value)
             {
-                templates = templates.Where(t => t.Name.Contains(search));
+                return RedirectToActionPermanent("Index", new { redirect = null as object });
             }
 
-            ViewBag.SearchTerm = search;
-
-            return View(templates);
-        }
-
-        public ActionResult Rules()
-        {
             return View();
         }
     }

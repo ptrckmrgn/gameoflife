@@ -11,7 +11,7 @@ using GameOfLife.Models;
 namespace GameOfLife.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;

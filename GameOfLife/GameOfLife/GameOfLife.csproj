@@ -177,13 +177,6 @@
     <Compile Include="Admin\Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
     </Compile>
-    <Compile Include="Admin\Index.aspx.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Index.aspx.designer.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -218,9 +211,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Migrations\201608070324311_Initial.cs" />
-    <Compile Include="Migrations\201608070324311_Initial.Designer.cs">
-      <DependentUpon>201608070324311_Initial.cs</DependentUpon>
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Migrations\201608151235495_Initial.cs" />
+    <Compile Include="Migrations\201608151235495_Initial.Designer.cs">
+      <DependentUpon>201608151235495_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cell.cs" />
@@ -236,6 +230,7 @@
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Quote.cs" />
     <Compile Include="Models\Template.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -243,11 +238,11 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin\Index.aspx" />
     <Content Include="Admin\Login.aspx" />
     <Content Include="Admin\Templates.aspx" />
     <Content Include="Admin\Upload.aspx" />
     <Content Include="Admin\Users.aspx" />
+    <Content Include="Content\jInvertScroll.css" />
     <Content Include="Content\style.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
@@ -255,11 +250,17 @@
     <Content Include="gulpfile.js" />
     <Content Include="package.json" />
     <Content Include="Content\animate.css" />
+    <Content Include="Resources\img\cloud1.png" />
+    <Content Include="Resources\img\cloud2.png" />
+    <Content Include="Resources\img\cloud3.png" />
+    <Content Include="Resources\img\cloud4.png" />
     <Content Include="Resources\js\libs\fittext.js" />
+    <Content Include="Resources\js\libs\jquery.jInvertScroll.js" />
     <Content Include="Resources\js\libs\jquery.validate.unobtrusive.js" />
+    <Content Include="Resources\js\libs\paintgame.js" />
+    <Content Include="Resources\js\libs\parallax.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\paintGame.js" />
     <Content Include="Resources\js\libs\masonry.pkgd.js" />
     <Content Include="Scripts\inits.js" />
     <Content Include="Resources\sass\style.scss" />
@@ -322,18 +323,21 @@
     <Content Include="Views\Games\Saved.cshtml" />
     <Content Include="Views\SavedGames\Index.cshtml" />
     <Content Include="Views\Error\Forbidden.cshtml" />
-    <Content Include="Views\Templates\_Search.cshtml" />
     <Content Include="Views\Games\Play.cshtml" />
     <Content Include="Views\Games\Index.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\Home\Rules.cshtml" />
     <Content Include="Views\Templates\MyTemplates.cshtml" />
+    <Content Include="Views\Home\_Rules.cshtml" />
+    <Content Include="Resources\Quotes.json" />
+    <Content Include="Resources\sass\_general.scss" />
+    <Content Include="Resources\sass\_header.scss" />
+    <Content Include="Resources\sass\_grid.scss" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608070324311_Initial.resx">
-      <DependentUpon>201608070324311_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608151235495_Initial.resx">
+      <DependentUpon>201608151235495_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

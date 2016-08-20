@@ -19,21 +19,22 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h2 class="panel-title">@item.Name</h2>
+                                <div class="sub-heading">Creator: @item.User.UserName</div>
                             </div>
                             <div class="panel-body">
-
                                 <canvas id="template-@item.Id"></canvas>
                                 <div class="template-details-overlay">
                                     <div class="template-details">
-                                        Creator: @item.User.UserName<br />
                                         Height: @item.Height<br />
                                         Width: @item.Width
                                     </div>
                                 </div>
                                 <script type="text/javascript">
-                                    paintGame("#template-@item.Id", @item.Height, @item.Width, "@item.Cells");
-                                    $(window).on('resize', function () {
-                                        paintGame("#template-@item.Id", @item.Height, @item.Width, "@item.Cells");
+                                    $('#template-@item.Id').paintgame({
+                                        height: @item.Height,
+                                        width: @item.Width,
+                                        cells: '@item.Cells',
+                                        liveCell: ['#EE4266', '#FFD23F', '#FFFFFF', '#4392F1', '#EDC9FF']
                                     });
                                 </script>
                             </div>
@@ -47,11 +48,32 @@
                                 @Html.ActionLink(btnA[0], btnA[1], btnA[2], new { id = item.Id }, new { @class = "btn btn-success btn-lg btn-block" })
                                 @if (btnB != null)
                                 {
-                                    @Html.ActionLink(btnB[0], btnB[1], btnB[2], new { id = item.Id }, null)
-                                }
-                                @if (btnC != null)
-                                {
-                                    @:| @Html.ActionLink(btnC[0], btnC[1], btnC[2], new { id = item.Id }, null)
+                                    <div class="row" style="padding-bottom: 0;">
+                                        @if (btnC != null)
+                                        {
+                                            <div class="col-xs-6" style="padding-right: 0;">
+                                                @if (btnB != null)
+                                                {
+                                                    @Html.ActionLink(btnB[0], btnB[1], btnB[2], new { id = item.Id }, new { @class = "btn btn-info btn-block" })
+                                                }
+                                            </div>
+                                            <div class="col-xs-6" style="padding-left: 0;">
+                                                @if (btnC != null)
+                                                {
+                                                    @Html.ActionLink(btnC[0], btnC[1], btnC[2], new { id = item.Id }, new { @class = "btn btn-danger btn-block" })
+                                                }
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-xs-12">
+                                                @if (btnB != null)
+                                                {
+                                                    @Html.ActionLink(btnB[0], btnB[1], btnB[2], new { id = item.Id }, new { @class = "btn btn-info btn-block" })
+                                                }
+                                            </div>
+                                        }
+                                    </div>
                                 }
                             </div>
                         </div>
@@ -61,17 +83,16 @@
         }
         else
         {
-            <h2 class="pull-center">Nothing here...</h2>
+            <h2 class="pull-center">There's nothing here...</h2>
         }
     </div>
 </div>
 
 <script>
-    $('.panel').on('mouseenter', function() {
-        console.log($(this));
-        $(this).find('.template-details-overlay').fadeIn(200)
+    $('.panel-body').on('mouseenter', function() {
+        $(this).find('.template-details-overlay').fadeIn(200);
     });
-    $('.panel').on('mouseleave', function() {
-        $(this).find('.template-details-overlay').fadeOut(200)
+    $('.panel-body').on('mouseleave', function() {
+        $(this).find('.template-details-overlay').fadeOut(200);
     });
 </script>

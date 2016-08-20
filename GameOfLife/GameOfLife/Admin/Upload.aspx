@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Upload.aspx.cs" Inherits="GameOfLife.Admin.Upload" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <h1>Admin - Upload Template</h1><br />
 
     <br /><asp:Label ID="Message" runat="server" Text=""></asp:Label><br />
 

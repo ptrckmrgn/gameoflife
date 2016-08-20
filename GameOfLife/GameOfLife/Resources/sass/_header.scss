@@ -1,0 +1,91 @@
+﻿/**************************************
+* HEADER
+**************************************/
+
+header {
+    //background: rgba(255,255,255,0.7);
+    //box-shadow: 0 6px 15px 0 rgba(255,255,255,0.3),0 2px 10px 0 rgba(255,255,255,0.1);
+    //height: 200px;
+    padding: 0 0 40px 0;
+    .navbar {
+        margin: 0;
+        .navbar-brand {
+            font-size: 20px;
+        }
+        a {
+            font-size: 16px;
+            //background: #fff;
+            color: #222;
+            &:hover, &:focus {
+                background: none;
+                color: #0ce3ac;
+            }
+        }
+        .dropdown-toggle {
+            //background: #fff;
+            &:hover, &:focus {
+                background: none;
+                color: #0ce3ac;
+            }
+        }
+        .open a {
+            background: none;
+        }
+        .dropdown-menu {
+            width: 100%;
+            min-width: 160px;
+            padding: 0px;
+            border: none;
+            background: none;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+            li a {
+                text-align: right;
+                color: #222;
+                padding: 10px 15px;
+                &:hover, &:focus {
+                    background: none;
+                    color: #0ce3ac;
+                }
+            }
+            .divider {
+                background: #eee;
+            }
+        }
+    }
+    
+    .header-title {
+        /*position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        /*transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);*/
+        h1 {
+            margin: 0;
+            color: #222;
+            font-size: 90px;
+            font-family: Cinzel;
+            text-align: center;
+            //margin: -50px;
+        }
+    }
+    .quote {
+        display: none;
+        font-size: 24px;
+        padding: 10px 0;
+        text-align: center;
+        font-style: italic;
+        .quote-body {
+            color: #EE4266;
+            font-style: italic;
+        }
+        .quote-author {
+            color: #666;
+            font-size: 70%;
+        }
+    }
+}

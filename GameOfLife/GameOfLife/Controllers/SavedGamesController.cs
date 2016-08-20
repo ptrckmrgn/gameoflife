@@ -16,7 +16,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace GameOfLife.Controllers
 {
     [Authorize]
-    public class SavedGamesController : Controller
+    public class SavedGamesController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

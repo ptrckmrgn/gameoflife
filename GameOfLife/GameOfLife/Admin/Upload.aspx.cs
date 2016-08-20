@@ -18,18 +18,7 @@ namespace GameOfLife.Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Check user authorisation
-            try
-            {
-                if (!Roles.IsUserInRole(User.Identity.GetUserName(), "Admin"))
-                {
-                    Response.Redirect("/Admin/Login.aspx");
-                }
-            }
-            catch (NullReferenceException)
-            {
-                Response.Redirect("/Admin/Login.aspx");
-            }
+
         }
 
         protected void Submit_Click(object sender, EventArgs e)

@@ -4,8 +4,6 @@
     ViewBag.Title = "Play";
 }
 
-<script src="~/Scripts/paintGame.js"></script>
-
 <h2>Play</h2>
 
 <a href="" id="play-game" class="btn btn-primary">Start</a>
@@ -15,11 +13,16 @@ Speed <input id="speed" type="range" />
 
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <canvas id="game"></canvas>
-        <script type="text/javascript">
-            paintGame("#game", @Model.Height, @Model.Width, "@Model.Cells");
-            $(window).on('resize', function () {
-                paintGame("#game", @Model.Height, @Model.Width, "@Model.Cells");
+        <div id="cellstring"></div>
+        <div id="game-wrapper">
+            <canvas id="game"></canvas>
+        </div>
+        <script>
+            $('#game').paintgame({
+                height: @Model.Height,
+                width: @Model.Width,
+                cells: "@Model.Cells",
+                liveCell: ['#EE4266', '#FFD23F', '#FFFFFF', '#4392F1', '#EDC9FF']
             });
         </script>
     </div>
@@ -43,7 +46,16 @@ Speed <input id="speed" type="range" />
             {
                 $.post("@Url.Action("PlayTurn", new { id = Url.RequestContext.RouteData.Values["id"] })", function(data)
                 {
-                    paintGame("#game", @Model.Height, @Model.Width, data);
+                    $('#cellstring').text(data);
+                    $('#game').remove();
+                    $('#game-wrapper').append('<canvas id="game"></canvas>');
+
+                    $('#game').paintgame({
+                        height: @Model.Height,
+                        width: @Model.Width,
+                        cells: data,
+                        liveCell: ['#EE4266', '#FFD23F', '#FFFFFF', '#4392F1', '#EDC9FF']
+                    });
                 });
             }, 1000);
         });

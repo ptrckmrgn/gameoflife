@@ -9,7 +9,7 @@
 
     <div id="part2" class="page-center" style="display:none;"><h1>of life vs. death...</h1></div>
 
-    <div id="part3" class="page-center" style="display:none;">
+    @*<div id="part3" class="page-center" style="display:none;">
         <div class="title">
             <div>Conway's</div>
             <div>Game</div>
@@ -19,31 +19,31 @@
 
         <div class="text-center">
             <a id="begin" class="btn btn-lg btn-success" role="button">BEGIN</a>
+            <a class="btn btn-lg btn-default" data-toggle="modal" data-target="#rules" role="button">RULES</a>
         </div>
-    </div>
+    </div>*@
 
     <a id="skip" class="alink">skip...</a>
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div id="part3" class="col-xs-12" style="display:none;">
         <div class="title">
             <div>Conway's</div>
             <div>Game</div>
             <div>of</div>
             <div>Life</div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <p>Players: 0</p>
-        <p>Difficulty: 0</p>
-        <p>The game is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Game of Life by creating an initial configuration and observing how it evolves, or, for advanced players, by creating patterns with particular properties</p>
-        <a href="/Rules">Rules</a>
+        <div class="text-center">
+            @Html.ActionLink("BEGIN", "Index", "Templates", null, new { @class = "btn btn-lg btn-success" })
+            <a class="btn btn-lg btn-default" data-toggle="modal" data-target="#rules" role="button">RULES</a>
+        </div>
+        @Html.Partial("_Rules")
     </div>
 </div>
 
 
-<div class="row">
+@*<div class="row">
     <div class="col-xs-12">
         <h1>Templates</h1>
     </div>
@@ -53,7 +53,7 @@
     ViewData["btnA"] = new[] { "LOAD", "Load", "Games" };
 }
 
-@Html.Partial("~/Views/Shared/_Grid.cshtml", ViewData.Model, ViewData)
+@Html.Partial("~/Views/Shared/_Grid.cshtml", ViewData.Model, ViewData)*@
 
 @*<div class="quote">
     This is a quote, about life or something. Life blah yo yeah cool.
@@ -61,45 +61,31 @@
 
 
 <script>
-    var skip = true;
-
-    @if (Request.Cookies["skip"] == null)
+    @if (Request.Cookies["intro"] == null)
+    {
+        Response.Cookies["intro"].Value = "1";
+    }
+    else
     {
         <text>
-        var skip = false;
+            $("#overlay").hide();
+            $("#part3").fadeIn(1500);
         </text>
-        Response.Cookies["skip"].Value = "1";
-        //Response.Cookies["skip"].Expires = DateTime.Now.AddDays(1);
     }
 
-    if (skip)
-    {
-        $("#overlay").hide();
-    }
+    $(document).ready(function () {
+        $("#part1").hide().delay(1000).fadeIn(2000).fadeOut(2000);
+        $("#part2").hide().delay(5000).fadeIn(2000).fadeOut(2000);
+        setTimeout(hideOverlay, 9000)
+    });
 
     $("#skip").click(function (e) {
         e.preventDefault();
         hideOverlay();
     });
 
-    $("#begin").click(function (e) {
-        e.preventDefault();
-        hideOverlay();
-    });
-
     function hideOverlay() {
-        $("#overlay").fadeOut(1000);
+        $("#overlay").fadeOut(500);
+        $("#part3").fadeIn(2000);
     }
-
-    $(document).ready(function () {
-        $("#part1").hide().delay(1000).fadeIn(2000).fadeOut(2000);
-        $("#part2").hide().delay(5000).fadeIn(2000).fadeOut(2000);
-        $("#part3").hide().delay(9000).fadeIn(2000);
-        setInterval(function () {
-            $("#overlay").animate({
-                backgroundColor: "#fff"
-            }, 500);
-        }, 9000);
-    });
-    //$("#title").fitText();
 </script>

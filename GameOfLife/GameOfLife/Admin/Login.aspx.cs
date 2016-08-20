@@ -43,7 +43,7 @@ namespace GameOfLife.Admin
                         // Check user authorisation
                         try
                         {
-                            if (!Roles.IsUserInRole(User.Identity.GetUserName(), "Admin"))
+                            if (!Roles.IsUserInRole(Email.Text, "Admin"))
                             {
                                 FailureText.Text = "You need an administrator account to access this area of the site.";
                                 ErrorMessage.Visible = true;

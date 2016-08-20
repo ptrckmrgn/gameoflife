@@ -4,55 +4,17 @@
 @import "bootswatch";
 @import "font-awesome/scss/font-awesome";
 
+@import "general";
+@import "header";
+@import "grid";
+
 @import url(https://fonts.googleapis.com/css?family=Cinzel);
-@import url(https://fonts.googleapis.com/css?family=Bungee+Shade);
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400);
 
-$font-family-serif: 'Bungee Shade';
+/**************************************
+* PAGE: Home
+**************************************/
 
-/* Text Styling */
-h1 {
-    font-size: 6rem;
-    text-align: center;
-}
-
-a {
-    text-decoration: none;
-    &:hover {
-        text-decoration: none;
-    }
-    &:focus {
-        text-decoration: none;
-    }
-}
-
-/* Helper styles */
-.page-center {
-    position: relative;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.pull-center {
-    text-align: center;
-}
-
-.alink {
-    cursor: pointer;
-}
-
-/* Bootstrap Changes */ 
-.body-content {
-    padding-top: 60px;
-}
-.btn-lg {
-    height: 64px;
-}
-.row {
-    padding-bottom: 20px;
-}
-
-/* Home Styling */
 #overlay {
     background: #222;
     position: absolute;
@@ -62,15 +24,20 @@ a {
     width: 100%;
     z-index: 9999;
     h1 {
-
         color: #666;
     }
 }
+
+#home {
+    background: #fff;
+}
+
 .title {
     color: #222;
+    font-size: 90px;
     font-family: Cinzel;
     text-align: center;
-    margin: 40px 0;
+    //margin: 40px 0;
     div:nth-child(1) {
         font-family: initial;
         font-size: 60px;
@@ -88,6 +55,7 @@ a {
         line-height: 100px;
     }
 }
+
 @media (min-width: $screen-md-min) {
     .title {
         div:nth-child(1) {
@@ -117,56 +85,84 @@ a {
     right: 5vw;
 }
 
-/* Templates Styling */
-.templates {
-    .panel {
-	    margin: 0;
-        .panel-body {
-            position: relative;
-            .template-details-overlay {
-                display: none;
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.9);
-                padding: 20px 0 0 20px;
-            }
-        }
+/**************************************
+* CLOUDS
+**************************************/
+
+.clouds-bottom {
+    position: fixed;
+    z-index: 0;
+    &#cloud1 {
+        bottom: -50px;
+        left: calc(-1600px + 10vw);
+        width: 1800px;
+    }
+    &#cloud2 {
+        bottom: -50px;
+        left: calc(-1300px + 10vw);
+        bottom: 50px;
+        width: 1400px;
+    }
+    &#cloud3 {
+        bottom: -50px;
+        right: -1000px;
+        margin-left: -140px;
+        width: 1200px;
+    }
+    &#cloud4 {
+        bottom: -50px;
+        right: -1400px;
+        margin-left: -140px;
+        width: 1600px;
     }
 }
 
-/* Masonry Styling */
-.grid-gutter-sizer {
-	width: 2%;
-}
-@media only screen and (min-width: 992px) {
-    $grid-item-width: 23.5%;
-    $grid-gutter: 2%;
-	.grid-sizer,
-	.grid-item {
-		width: $grid-item-width;
-	}
-    .grid-item--width2 { 
-        width:  $grid-item-width * 2 + $grid-gutter;
+
+.clouds-top {
+    position: absolute;
+    z-index: -1;
+    &#cloud5 {
+        top: -250px;
+        left: -100px;
+        width: 1800px;
+    }
+    &#cloud6 {
+        top: -350px;
+        right: -150px;
+        width: 1400px;
+    }
+    &#cloud7 {
+        top: -100px;
+        right: 400px;
+        width: 1200px;
     }
 }
-@media only screen and (max-width: 992px) {
-    $grid-item-width: 32%;
-    $grid-gutter: 2%;
-	.grid-sizer,
-	.grid-item {
-		width: $grid-item-width;
-	}
-    .grid-item--width2 { 
-        width:  $grid-item-width * 2 + $grid-gutter;
+
+/**************************************
+* SEARCH
+**************************************/
+
+.search-box {
+    font-size: 32px;
+    font-weight: 300;
+    background: rgba(0,0,0,0.1);
+    padding: 8px 20px;
+    color: $brand-success;
+    &:focus {
+        color: $brand-success;
     }
 }
-@media only screen and (max-width: 768px) {
-    $grid-item-width: 100%;
-	.grid-sizer,
-	.grid-item {
-		width: $grid-item-width;
-	}
+
+/**************************************
+* FOOTER
+**************************************/
+
+footer {
+    position: fixed;
+    bottom: 0;
+    padding: 40px 0 10px 10px;
+    text-align: center;
+    a {
+        color: #ccc;
+    }
 }

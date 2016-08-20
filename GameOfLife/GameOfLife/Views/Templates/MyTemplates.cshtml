@@ -6,24 +6,13 @@
 
 <script src="~/Scripts/paintGame.js"></script>
 
-<div class="row">
-    <div class="col-md-6 col-sm-10 col-md-offset-3 col-sm-offset-1">
-        <form action="/Templates/@ViewBag.Context" method="get">
-            <div class="input-group">
-                <input type="text" name="search" class="form-control input-lg search-box" placeholder="Search..." value="@ViewBag.SearchTerm">
-                <span class="input-group-btn">
-                    <button class="btn btn-default btn-lg" type="button">Search</button>
-                </span>
-            </div>
-        </form>
-    </div>
-</div>
-
+<div class="spacer-2"></div>
 <div class="row">
     <div class="col-xs-12">
-        @Html.ActionLink("Create New", "Create", new { userId = ViewBag.userId }, new { @class = "btn btn-success pull-right" })
+        @Html.ActionLink("Create Template", "Create", new { userId = ViewBag.userId }, new { @class = "btn btn-lg btn-danger pull-right" })
     </div>
 </div>
+<div class="spacer-1"></div>
 
 @{
     ViewData["btnA"] = new[] { "LOAD", "Load", "Games" };

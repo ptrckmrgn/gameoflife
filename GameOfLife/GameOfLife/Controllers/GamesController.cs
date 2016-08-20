@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace GameOfLife.Controllers
 {
-    public class GamesController : Controller
+    public class GamesController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

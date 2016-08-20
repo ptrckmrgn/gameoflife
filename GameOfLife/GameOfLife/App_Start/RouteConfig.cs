@@ -13,11 +13,17 @@ namespace GameOfLife
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //routes.MapRoute(
-            //    name: "UserTemplates",
-            //    url: "Templates/User/{username}",
-            //    defaults: new { controller = "Templates", action = "Index", username = UrlParameter.Optional }
-            //);
+            routes.MapRoute(
+                name: "HomeRedirect",
+                url: "Home",
+                defaults: new { controller = "Home", action = "Index", redirect = true }
+            );
+
+            routes.MapRoute(
+                name: "HomeIndexRedirect",
+                url: "Home/Index",
+                defaults: new { controller = "Home", action = "Index", redirect = true }
+            );
 
             routes.MapRoute(
                 name: "ActiveDelete",

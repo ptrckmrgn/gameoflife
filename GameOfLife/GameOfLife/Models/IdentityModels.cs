@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace GameOfLife.Models
 {
@@ -18,8 +19,8 @@ namespace GameOfLife.Models
             return userIdentity;
         }
 
-        public virtual ICollection<Template> Templates { get; set; }
-        public virtual ICollection<Game> Games { get; set; }
+        public ICollection<Template> Templates { get; set; }
+        public ICollection<Game> Games { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -36,5 +37,6 @@ namespace GameOfLife.Models
 
         public DbSet<Template> Templates { get; set; }
         public DbSet<Game> Games { get; set; }
+        public DbSet<Quote> Quotes { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using FluentValidation.Attributes;
 using FluentValidation.Results;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 
 namespace GameOfLife.Models
 {
@@ -21,10 +22,11 @@ namespace GameOfLife.Models
         public int Width { get; set; }
 
         [Required]
-        [DataType(DataType.MultilineText)]
         public string Cells { get; set; }
 
-        //[Required]
+        [Required]
+        public string UserId { get; set; }
+
         public virtual ApplicationUser User { get; set; }
     }
 
@@ -42,4 +44,5 @@ namespace GameOfLife.Models
             return template.Cells.Length == template.Height * template.Width;
         }
     }
+
 }

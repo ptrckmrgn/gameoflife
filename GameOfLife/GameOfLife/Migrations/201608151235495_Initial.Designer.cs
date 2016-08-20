@@ -13,7 +13,7 @@ namespace GameOfLife.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201608070324311_Initial"; }
+            get { return "201608151235495_Initial"; }
         }
         
         string IMigrationMetadata.Source
