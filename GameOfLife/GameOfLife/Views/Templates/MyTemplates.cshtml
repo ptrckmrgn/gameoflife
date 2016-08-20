@@ -4,14 +4,16 @@
     ViewBag.Title = "My Templates";
 }
 
-<script src="~/Scripts/paintGame.js"></script>
-
-<div class="spacer-2"></div>
 <div class="row">
-    <div class="col-xs-12">
-        @Html.ActionLink("Create Template", "Create", new { userId = ViewBag.userId }, new { @class = "btn btn-lg btn-danger pull-right" })
+    <div class="col-md-9">
+        <h1>My Templates</h1>
+        <div class="sub-heading">Manage your templates</div>
+    </div>
+    <div class="col-md-3">
+        @Html.ActionLink("Create Template", "Create", "Templates", null, new { @class = "btn btn-lg btn-danger pull-right" })
     </div>
 </div>
+
 <div class="spacer-1"></div>
 
 @{

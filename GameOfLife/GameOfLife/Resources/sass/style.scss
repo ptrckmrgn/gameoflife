@@ -4,154 +4,14 @@
 @import "bootswatch";
 @import "font-awesome/scss/font-awesome";
 
-@import "general";
-@import "header";
-@import "grid";
+@import "Components/intro";
+@import "Components/clouds";
+@import "Components/header";
+@import "Components/game";
+@import "Components/webforms";
 
 @import url(https://fonts.googleapis.com/css?family=Cinzel);
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400);
-
-/**************************************
-* PAGE: Home
-**************************************/
-
-#overlay {
-    background: #222;
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 9999;
-    h1 {
-        color: #666;
-    }
-}
-
-#home {
-    background: #fff;
-}
-
-.title {
-    color: #222;
-    font-size: 90px;
-    font-family: Cinzel;
-    text-align: center;
-    //margin: 40px 0;
-    div:nth-child(1) {
-        font-family: initial;
-        font-size: 60px;
-    }
-    div:nth-child(2) {
-        font-size: 100px;
-        line-height: 80px;
-    }
-    div:nth-child(3) {
-        font-size: 40px;
-        line-height: 20px;
-    }
-    div:nth-child(4) {
-        font-size: 130px;
-        line-height: 100px;
-    }
-}
-
-@media (min-width: $screen-md-min) {
-    .title {
-        div:nth-child(1) {
-            font-family: initial;
-            font-size: 1.5vw;
-        }
-        div:nth-child(2) {
-            font-size: 6vw;
-            line-height: 6vw;
-        }
-        div:nth-child(3) {
-            font-size: 3vw;
-            line-height: 3vw;
-        }
-        div:nth-child(4) {
-            margin-top: -2vh;
-            font-size: 12vw;
-            line-height: 10vw;
-        }
-    }
-}
-
-#skip {
-    font-size: 20px;
-    position: absolute;
-    bottom: 5vh;
-    right: 5vw;
-}
-
-/**************************************
-* CLOUDS
-**************************************/
-
-.clouds-bottom {
-    position: fixed;
-    z-index: 0;
-    &#cloud1 {
-        bottom: -50px;
-        left: calc(-1600px + 10vw);
-        width: 1800px;
-    }
-    &#cloud2 {
-        bottom: -50px;
-        left: calc(-1300px + 10vw);
-        bottom: 50px;
-        width: 1400px;
-    }
-    &#cloud3 {
-        bottom: -50px;
-        right: -1000px;
-        margin-left: -140px;
-        width: 1200px;
-    }
-    &#cloud4 {
-        bottom: -50px;
-        right: -1400px;
-        margin-left: -140px;
-        width: 1600px;
-    }
-}
-
-
-.clouds-top {
-    position: absolute;
-    z-index: -1;
-    &#cloud5 {
-        top: -250px;
-        left: -100px;
-        width: 1800px;
-    }
-    &#cloud6 {
-        top: -350px;
-        right: -150px;
-        width: 1400px;
-    }
-    &#cloud7 {
-        top: -100px;
-        right: 400px;
-        width: 1200px;
-    }
-}
-
-/**************************************
-* SEARCH
-**************************************/
-
-.search-box {
-    font-size: 32px;
-    font-weight: 300;
-    background: rgba(0,0,0,0.1);
-    padding: 8px 20px;
-    color: $brand-success;
-    &:focus {
-        color: $brand-success;
-    }
-}
 
 /**************************************
 * FOOTER
@@ -164,5 +24,172 @@ footer {
     text-align: center;
     a {
         color: #ccc;
+    }
+}
+
+/**************************************
+* HELPERS
+**************************************/
+
+.parent-center {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.screen-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.pull-center {
+    text-align: center;
+}
+
+.alink {
+    cursor: pointer;
+}
+
+$spacer: 30px;
+.spacer-1 {
+    height: $spacer * 1;
+}
+.spacer-2 {
+    height: $spacer * 2;
+}
+.spacer-3 {
+    height: $spacer * 3;
+}
+.spacer-4 {
+    height: $spacer * 4;
+}
+
+/**************************************
+* LOADING PAGE
+**************************************/
+
+#loading {
+    background: #fff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+}
+
+/**************************************
+* TEXT
+**************************************/
+
+h1 {
+    font-size: 5rem;
+    font-weight: 300;
+    margin: 0px 0 20px 0;
+}
+
+.sub-heading {
+    font-size: 1.8rem;
+    margin-top: -10px;
+    color: #666;
+}
+
+a {
+    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+    }
+    &:focus {
+        text-decoration: none;
+    }
+}
+
+.validation-summary-errors {
+    ul {
+        font-size: 18px;
+        text-align: center;
+        list-style-type: none;
+        -webkit-margin-start: -2em;
+    }
+}
+
+/**************************************
+* STRUCTURE
+**************************************/
+
+body {
+    background: #222;
+    .no-overflow {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        overflow: hidden;
+    }
+}
+
+.body-content {
+    padding: 40px 0 60px 0;
+}
+
+.row {
+    padding-bottom: 10px;
+}
+
+/**************************************
+* BUTTONS
+**************************************/
+
+.btn {
+    font-size: 18px;
+    border-radius: 4px;
+}
+
+.btn-lg {
+    height: 64px;
+    border-radius: 4px;
+}
+
+/**************************************
+* FORMS
+**************************************/
+
+.checkbox {
+    margin-left: 25px;
+    label {
+        padding-left: 10px;
+    }
+}
+
+.form-horizontal {
+    .form-group {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .control-label {
+        padding: 5px 0;
+    }
+    .text-box {
+        color: $brand-success;
+        background: #444;
+    }
+}
+
+.search-box {
+    font-size: 32px;
+    font-weight: 300;
+    background: rgba(0,0,0,0.1);
+    padding: 8px 20px;
+    color: $brand-success;
+    border-bottom: $brand-success solid 2px;
+    border-radius: 2px;
+    &:focus {
+        color: $brand-success;
     }
 }

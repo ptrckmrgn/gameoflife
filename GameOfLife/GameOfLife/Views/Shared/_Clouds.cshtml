@@ -1,0 +1,61 @@
+﻿<img class="cloud" id="top1" src="~/Content/img/cloud1.png" />
+<img class="cloud" id="top2" src="~/Content/img/cloud2.png" />
+<img class="cloud" id="top3" src="~/Content/img/cloud3.png" />
+<img class="cloud" id="top4" src="~/Content/img/cloud4.png" />
+<img class="cloud" id="top5" src="~/Content/img/cloud2.png" />
+
+<div class="hidden-sm hidden-xs">
+    <img class="cloud" id="left1" src="~/Content/img/cloud1.png" />
+    <img class="cloud" id="left2" src="~/Content/img/cloud2.png" />
+    <img class="cloud" id="left3" src="~/Content/img/cloud3.png" />
+
+    <img class="cloud" id="right1" src="~/Content/img/cloud3.png" />
+    <img class="cloud" id="right2" src="~/Content/img/cloud4.png" />
+    <img class="cloud" id="right3" src="~/Content/img/cloud2.png" />
+</div>
+
+<script>
+        var lastScrollTop = 0;
+        $(window).scroll(function (e) {
+            var st = $(this).scrollTop();
+            if (st > lastScrollTop) {
+                $('#left1').animate({ top: '+=2px' }, 10);
+                $('#left2').animate({ top: '-=3px' }, 10);
+                $('#left3').animate({ top: '+=4px' }, 10);
+
+                $('#right1').animate({ top: '-=4px' }, 10);
+                $('#right2').animate({ top: '+=3px' }, 10);
+                $('#right3').animate({ top: '+=2px' }, 10);
+            } else {
+                $('#left1').animate({ top: '-=2px' }, 10);
+                $('#left2').animate({ top: '+=3px' }, 10);
+                $('#left3').animate({ top: '-=4px' }, 10);
+
+                $('#right1').animate({ top: '+=4px' }, 10);
+                $('#right2').animate({ top: '-=3px' }, 10);
+                $('#right3').animate({ top: '-=2px' }, 10);
+            }
+            lastScrollTop = st;
+        });
+
+        if (window.location.pathname == "/Templates")
+        {
+            @if (Request.Cookies["clouds"] == null)
+            {
+                Response.Cookies["clouds"].Value = "1";
+
+                <text>
+                $(document).ready(function () {
+                    $("#left1").css('left', 0).css('z-index', 999).animate({ "left": "-1400px" }, 1800, 'swing');
+                    $("#left2").css('left', 0).css('z-index', 999).animate({ "left": "-1150px" }, 2500, 'swing');
+
+                    $("#right1").css('right', 0).css('z-index', 999).animate({ "right": "-1400px" }, 1400, 'swing');
+                    $("#right2").css('right', 0).css('z-index', 999).animate({ "right": "-1400px" }, 2200, 'swing');
+                    setInterval(function () {
+                        $(".cloud").css('z-index', -1);
+                    }, 2500)
+                });
+                </text>
+            }
+        }
+</script>

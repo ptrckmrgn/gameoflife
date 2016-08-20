@@ -25,6 +25,7 @@
             this.cellsString = this.options.cells;
         }
 
+        this.fit = this.options.fit;
         this.background = this.options.background;
         this.deadCell = this.options.deadCell;
         this.liveCell = this.options.liveCell;
@@ -57,16 +58,33 @@
             var pos, state, x1, y1;
 
             this.canvas.css('background', this.background);
-            this.canvas.css('width', '100%');
 
-            if (this.canvasWidth != undefined) {
-                // Clear canvas if previously painted
-                this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+            // Get parent dimensions
+            var parentHeight = parseInt(this.canvas.parent().css('height'), 10) - parseInt(this.canvas.parent().css('padding-top'), 10) - parseInt(this.canvas.parent().css('padding-bottom'), 10);
+            var parentWidth = parseInt(this.canvas.parent().css('width'), 10) - parseInt(this.canvas.parent().css('padding-left'), 10) - parseInt(this.canvas.parent().css('padding-right'), 10);
+            var parentRatio = parentHeight / parentWidth;
+
+            var gameRatio = this.height / this.width;
+
+            if (this.fit == 'width') {
+                this.canvasWidth = parentWidth;
+                this.canvasHeight = parentWidth * gameRatio;
             }
-
-            // Size canvas based on parent width and height:width ratio
-            this.canvasWidth = parseInt(this.canvas.css('width'), 10);
-            this.canvasHeight = this.canvasWidth * (this.height / this.width);
+            else if (this.fit == 'height') {
+                this.canvasHeight = parentHeight;
+                this.canvasWidth = parentHeight / gameRatio;
+            }
+            else if (this.fit == 'both') {
+                // Fit game to parent while keeping ratio
+                if (gameRatio > parentRatio) {
+                    this.canvasHeight = parentHeight;
+                    this.canvasWidth = parentHeight / gameRatio;
+                }
+                else {
+                    this.canvasWidth = parentWidth;
+                    this.canvasHeight = parentWidth * gameRatio;
+                }
+            }
 
             // Set canvas dimensions
             this.canvas.attr('width', this.canvasWidth);
@@ -99,6 +117,8 @@
         },
 
         paint: function () {
+            this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
             // Paint canvas
             var pos, state, x1, y1, x2, y2, rnd;
             for (var row = 0; row < this.height; row++) {
@@ -310,6 +330,7 @@
 
     $.fn.paintgame.defaults = {
         mode: 'read',
+        fit: 'width',
         cellGutter: 2,
         deadCell: ['#000000'],
         liveCell: ['#FFFFFF'],

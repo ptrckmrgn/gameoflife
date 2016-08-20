@@ -55,18 +55,18 @@ namespace GameOfLife.Admin
                     db.SaveChanges();
 
                     Message.Text = "Upload successful!";
-                    Message.CssClass = "alert alert-success";
+                    Message.CssClass = "text-success";
                 }
                 else
                 {
                     Message.Text = "Upload needs to be a text file.";
-                    Message.CssClass = "alert alert-danger";
+                    Message.CssClass = "text-danger";
                 }
             }
             else
             {
                 Message.Text = "You did not specify a file to upload.";
-                Message.CssClass = "alert alert-danger";
+                Message.CssClass = "text-danger";
             }
         }
     }

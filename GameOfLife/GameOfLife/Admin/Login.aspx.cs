@@ -40,22 +40,6 @@ namespace GameOfLife.Admin
                 switch (result)
                 {
                     case SignInStatus.Success:
-                        // Check user authorisation
-                        try
-                        {
-                            if (!Roles.IsUserInRole(Email.Text, "Admin"))
-                            {
-                                FailureText.Text = "You need an administrator account to access this area of the site.";
-                                ErrorMessage.Visible = true;
-                                break;
-                            }
-                        }
-                        catch (NullReferenceException)
-                        {
-                            FailureText.Text = "You need an administrator account to access this area of the site.";
-                            ErrorMessage.Visible = true;
-                            break;
-                        }
                         Response.Redirect("/Admin/Users.aspx");
                         break;
                     case SignInStatus.LockedOut:

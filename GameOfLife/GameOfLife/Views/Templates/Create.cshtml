@@ -10,18 +10,22 @@
         <div class="sub-heading pull-center">White cells represent life, black represent death</div>
     </div>
 </div>
-<div class="spacer-1"></div>
+
+<div class="row">
+    <div class="col-sm-offset-3 col-sm-6">
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+    </div>
+</div>
 
 <div class="row">
     @using (Html.BeginForm())
     {
-        <div class="col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+        <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
             @Html.AntiForgeryToken()
 
             @Html.HiddenFor(model => model.UserId, new { @Value = ViewBag.UserId })
 
             <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
@@ -44,27 +48,21 @@
                     @Html.LabelFor(model => model.Cells, htmlAttributes: new { @class = "control-label" })
                     @Html.HiddenFor(model => model.Cells, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
-                <div id="cell-helper" class="sub-heading" style="font-size: 1.5rem;">Input height and width.</div>
             </div>
         </div>
 
-        <div id="form-next" class="col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
-            <canvas id="write-template"></canvas>
-            <script>
-                $('#write-template').paintgame({
-                    mode: 'write',
-                    height: '#Height',
-                    width: '#Width',
-                    cells: '#Cells'
-                });
-            </script>
+        <div id="form-next" class="col-xs-12">
+            <div class="template-wrapper">
+                <canvas id="write-template"></canvas>
+            </div>
+        </div>
 
+        <div class="col-xs-12">
             <div class="spacer-1"></div>
 
             <div class="form-group pull-center">
-                <input type="submit" value="Create" class="btn btn-success" />
+                <input type="submit" value="Create Template" class="btn btn-success" />
             </div>
-
         </div>
     }
 </div>
@@ -72,27 +70,36 @@
 <script>
     var width = $('#Width'),
         height = $('#Height'),
+        cells = $('#Cells'),
         form = $('#form-next'),
-        helper = $('#cell-helper');
+        helper = $('#cell-helper'), 
+        triggered = false;
+
+    $('#write-template').paintgame({
+        mode: 'write',
+        height: height,
+        width: width,
+        cells: cells,
+        fit: 'both',
+    });
 
     height.on('input', function () {
-        if (width.val() > 0 && height.val() > 0) {
-            //form.slideDown();
-            helper.slideUp();
-        }
-        else {
-            //form.slideUp();
-            helper.slideDown();
-        }
+        toggleCells();
     });
+
     width.on('input', function () {
-        if (width.val() > 0 && height.val() > 0) {
-            //form.slideDown();
-            helper.slideUp();
-        }
-        else {
-            //form.slideUp();
-            helper.slideDown();
-        }
+        toggleCells();
     });
+
+    function toggleCells() 
+    {
+        if (width.val() > 0 && height.val() > 0) {
+            if (!triggered) {
+                $('html, body').animate({
+                    scrollTop: $('#write-template').offset().top - 100
+                }, 1000, 'swing');
+                triggered = true;
+            }
+        }
+    }
 </script>

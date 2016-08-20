@@ -1,0 +1,86 @@
+﻿/**************************************
+* PAGE: Home
+**************************************/
+
+#overlay {
+    background: #222;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    h1 {
+        text-align: center;
+        font-size: 60px;
+        color: #fff;
+    }
+}
+
+#home {
+    background: #fff;
+}
+
+.title {
+    color: #222;
+    text-align: center;
+    #title-conway {
+        font-size: 24px;
+        color: #666;
+    }
+    #title-game {
+        font-size: 100px;
+        line-height: 90px;
+        font-family: Cinzel;
+    }
+    #title-of {
+        font-size: 50px;
+        line-height: 50px;
+        font-family: Cinzel;
+    }
+    #title-life {
+        margin-top: -15px;
+        font-size: 180px;
+        line-height: 160px;
+        font-family: Cinzel;
+    }
+}
+
+@media (min-width: $screen-xs-min) {
+    .title {
+        #title-conway {
+            font-size: 30px;
+            color: #666;
+        }
+        #title-game {
+            font-size: 130px;
+            line-height: 110px;
+            font-family: Cinzel;
+        }
+        #title-of {
+            font-size: 60px;
+            line-height: 60px;
+            font-family: Cinzel;
+        }
+        #title-life {
+            margin-top: -20px;
+            font-size: 240px;
+            line-height: 210px;
+            font-family: Cinzel;
+        }
+    }
+}
+
+#skip {
+    font-size: 20px;
+    position: absolute;
+    bottom: 5vh;
+    right: 5vw;
+}
+
+#reset {
+    font-size: 20px;
+    position: absolute;
+    bottom: 5vh;
+    right: 5vw;
+}

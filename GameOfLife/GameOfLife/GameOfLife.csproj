@@ -242,27 +242,22 @@
     <Content Include="Admin\Templates.aspx" />
     <Content Include="Admin\Upload.aspx" />
     <Content Include="Admin\Users.aspx" />
-    <Content Include="Content\jInvertScroll.css" />
+    <Content Include="Content\img\cloud1.png" />
+    <Content Include="Content\img\cloud2.png" />
+    <Content Include="Content\img\cloud3.png" />
+    <Content Include="Content\img\cloud4.png" />
     <Content Include="Content\style.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
     <Content Include="package.json" />
-    <Content Include="Content\animate.css" />
-    <Content Include="Resources\img\cloud1.png" />
-    <Content Include="Resources\img\cloud2.png" />
-    <Content Include="Resources\img\cloud3.png" />
-    <Content Include="Resources\img\cloud4.png" />
-    <Content Include="Resources\js\libs\fittext.js" />
-    <Content Include="Resources\js\libs\jquery.jInvertScroll.js" />
     <Content Include="Resources\js\libs\jquery.validate.unobtrusive.js" />
     <Content Include="Resources\js\libs\paintgame.js" />
-    <Content Include="Resources\js\libs\parallax.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Resources\js\libs\masonry.pkgd.js" />
-    <Content Include="Scripts\inits.js" />
+    <Content Include="Scripts\init.js" />
     <Content Include="Resources\sass\style.scss" />
     <Content Include="Resources\js\libs\jquery.validate.js" />
     <Content Include="Scripts\script.min.js" />
@@ -275,7 +270,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -314,13 +308,8 @@
     <Content Include="Views\Templates\Index.cshtml" />
     <Content Include="Resources\sass\_bootswatch.scss" />
     <Content Include="Resources\sass\_variables.scss" />
-    <Content Include="Views\Games\Create.cshtml" />
-    <Content Include="Views\Games\Delete.cshtml" />
-    <Content Include="Views\Games\Details.cshtml" />
-    <Content Include="Views\Games\Edit.cshtml" />
     <Content Include="Views\Error\PageNotFound.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
-    <Content Include="Views\Games\Saved.cshtml" />
     <Content Include="Views\SavedGames\Index.cshtml" />
     <Content Include="Views\Error\Forbidden.cshtml" />
     <Content Include="Views\Games\Play.cshtml" />
@@ -330,10 +319,12 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Templates\MyTemplates.cshtml" />
     <Content Include="Views\Home\_Rules.cshtml" />
-    <Content Include="Resources\Quotes.json" />
-    <Content Include="Resources\sass\_general.scss" />
-    <Content Include="Resources\sass\_header.scss" />
-    <Content Include="Resources\sass\_grid.scss" />
+    <Content Include="Resources\sass\Components\_header.scss" />
+    <Content Include="Resources\sass\Components\_game.scss" />
+    <Content Include="Views\Shared\_Clouds.cshtml" />
+    <Content Include="Resources\sass\Components\_clouds.scss" />
+    <Content Include="Resources\sass\Components\_intro.scss" />
+    <Content Include="Resources\sass\Components\_webforms.scss" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608151235495_Initial.resx">

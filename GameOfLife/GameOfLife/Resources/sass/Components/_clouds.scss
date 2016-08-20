@@ -1,0 +1,72 @@
+﻿/**************************************
+* CLOUDS
+**************************************/
+
+.cloud {
+    position: absolute;
+    z-index: -1;
+
+    /* Top Clouds */
+    &#top1 {
+        top: -250px;
+        left: -100px;
+        width: 1800px;
+    }
+    &#top2 {
+        top: -350px;
+        right: -80px;
+        width: 1400px;
+    }
+    &#top3 {
+        top: -300px;
+        right: 400px;
+        width: 1200px;
+    }
+    &#top4 {
+        top: -330px;
+        right: -275px;
+        width: 1200px;
+    }
+    &#top5 {
+        top: -330px;
+        left: -180px;
+        width: 1200px;
+    }
+
+    /* Left Clouds */
+    &#left1 {
+        top: 400px;
+        left: calc(-1700px + 15vw);
+        width: 1800px;
+    }
+    &#left2 {
+        left: calc(-1300px + 10vw);
+        top: 200px;
+        width: 1400px;
+    }
+    &#left3 {
+        left: calc(-1200px + 10vw);
+        top: 1000px;
+        width: 1200px;
+    }
+
+    /* Right Clouds */
+    &#right1 {
+        top: 500px;
+        right: calc(-1200px + 15vw);
+        margin-left: -140px;
+        width: 1200px;
+    }
+    &#right2 {
+        top: 50px;
+        right: calc(-1600px + 15vw);
+        margin-left: -140px;
+        width: 1600px;
+    }
+    &#right3 {
+        top: 700px;
+        right: -1400px;
+        margin-left: -140px;
+        width: 1600px;
+    }
+}

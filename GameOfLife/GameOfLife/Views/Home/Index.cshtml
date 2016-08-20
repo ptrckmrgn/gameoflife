@@ -5,60 +5,33 @@
 }
 
 <div id="overlay">
-    <div id="part1" class="page-center" style="display:none;"><h1>The ultimate game...</h1></div>
+    <div id="text1" class="screen-center" style="display:none;"><h1>The ultimate game...</h1></div>
 
-    <div id="part2" class="page-center" style="display:none;"><h1>of life vs. death...</h1></div>
-
-    @*<div id="part3" class="page-center" style="display:none;">
-        <div class="title">
-            <div>Conway's</div>
-            <div>Game</div>
-            <div>of</div>
-            <div>Life</div>
-        </div>
-
-        <div class="text-center">
-            <a id="begin" class="btn btn-lg btn-success" role="button">BEGIN</a>
-            <a class="btn btn-lg btn-default" data-toggle="modal" data-target="#rules" role="button">RULES</a>
-        </div>
-    </div>*@
+    <div id="text2" class="screen-center" style="display:none;"><h1>life vs. death...</h1></div>
 
     <a id="skip" class="alink">skip...</a>
 </div>
 
-<div class="row">
-    <div id="part3" class="col-xs-12" style="display:none;">
-        <div class="title">
-            <div>Conway's</div>
-            <div>Game</div>
-            <div>of</div>
-            <div>Life</div>
-        </div>
-        <div class="text-center">
-            @Html.ActionLink("BEGIN", "Index", "Templates", null, new { @class = "btn btn-lg btn-success" })
-            <a class="btn btn-lg btn-default" data-toggle="modal" data-target="#rules" role="button">RULES</a>
-        </div>
-        @Html.Partial("_Rules")
+<div id="landing" class="screen-center" style="display:none;">
+    <div class="title">
+        <div id="title-conway">Conway's</div>
+        <div id="title-game">Game</div>
+        <div id="title-of">of</div>
+        <div id="title-life">Life</div>
     </div>
+        
+    <div class="spacer-2"></div>
+
+    <div class="text-center">
+        @Html.ActionLink("BEGIN", "Index", "Templates", null, new { @class = "btn btn-lg btn-success" })
+        <a class="btn btn-lg btn-default" data-toggle="modal" data-target="#rules" role="button">RULES</a>
+    </div>
+    <div class="spacer-1"></div>
 </div>
 
+<a id="reset" class="alink">replay intro...</a>
 
-@*<div class="row">
-    <div class="col-xs-12">
-        <h1>Templates</h1>
-    </div>
-</div>
-
-@{
-    ViewData["btnA"] = new[] { "LOAD", "Load", "Games" };
-}
-
-@Html.Partial("~/Views/Shared/_Grid.cshtml", ViewData.Model, ViewData)*@
-
-@*<div class="quote">
-    This is a quote, about life or something. Life blah yo yeah cool.
-</div>*@
-
+@Html.Partial("_Rules")
 
 <script>
     @if (Request.Cookies["intro"] == null)
@@ -69,23 +42,30 @@
     {
         <text>
             $("#overlay").hide();
-            $("#part3").fadeIn(1500);
+            $("#landing").fadeIn(1500);
         </text>
     }
 
     $(document).ready(function () {
-        $("#part1").hide().delay(1000).fadeIn(2000).fadeOut(2000);
-        $("#part2").hide().delay(5000).fadeIn(2000).fadeOut(2000);
+        $("#text1").hide().delay(1000).fadeIn(2000).fadeOut(2000);
+        $("#text2").hide().delay(5000).fadeIn(2000).fadeOut(2000);
         setTimeout(hideOverlay, 9000)
     });
+
+    function hideOverlay() {
+        $("#overlay").fadeOut(500);
+        $("#landing").fadeIn(3000);
+    }
 
     $("#skip").click(function (e) {
         e.preventDefault();
         hideOverlay();
     });
 
-    function hideOverlay() {
-        $("#overlay").fadeOut(500);
-        $("#part3").fadeIn(2000);
-    }
+    $("#reset").click(function (e) {
+        e.preventDefault();
+        $.removeCookie('intro');
+        $.removeCookie('clouds');
+        location.reload();
+    });
 </script>

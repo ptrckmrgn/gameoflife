@@ -82,5 +82,13 @@ namespace GameOfLife.Helpers
             games.Remove(game);
             HttpContext.Current.Session["games"] = games;
         }
+
+        // Count games in the session
+        public static int CountGamesInSession()
+        {
+            List<Game> games = GetAllGamesFromSession();
+
+            return games.Count;
+        }
     }
 }

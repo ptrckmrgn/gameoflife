@@ -4,57 +4,92 @@
     ViewBag.Title = "Edit";
 }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Template</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.UserId)
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Height, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Width, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Width, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Width, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cells, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cells, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cells, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+<div class="row">
+    <div class="col-xs-12">
+        <h1 class="pull-center">Edit Template: @Model.Name</h1>
+        <div class="sub-heading pull-center">White cells represent life, black represent death</div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+
+<div class="spacer-1"></div>
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Height, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Width, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Width, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Width, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Cells, htmlAttributes: new { @class = "control-label" })
+                    @Html.HiddenFor(model => model.Cells, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div id="cell-helper" class="sub-heading" style="font-size: 1.5rem; display: none;">Input height and width.</div>
+            </div>
+        </div>
+
+        <div id="form-next" class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+            <canvas id="write-template"></canvas>
+            <script>
+                $('#write-template').paintgame({
+                    mode: 'write',
+                    height: '#Height',
+                    width: '#Width',
+                    cells: '#Cells'
+                });
+            </script>
+
+            <div class="spacer-1"></div>
+
+            <div class="form-group pull-center">
+                <input type="submit" value="Save" class="btn btn-success" />
+                @Html.ActionLink("Cancel", "MyTemplates", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    var width = $('#Width'),
+        height = $('#Height'),
+        form = $('#form-next'),
+        helper = $('#cell-helper');
+
+    height.on('input', function () {
+        if (width.val() > 0 && height.val() > 0) {
+            helper.slideUp();
+        }
+        else {
+            helper.slideDown();
+        }
+    });
+    width.on('input', function () {
+        if (width.val() > 0 && height.val() > 0) {
+            helper.slideUp();
+        }
+        else {
+            helper.slideDown();
+        }
+    });
+</script>

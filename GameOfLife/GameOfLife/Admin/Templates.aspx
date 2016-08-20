@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Templates" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Templates.aspx.cs" Inherits="GameOfLife.Admin.Templates" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h1>Admin - Templates</h1><br />
+    <h1>Templates</h1><br />
 
     <asp:GridView class="table table-striped" ID="GridView1" runat="server" DataSourceID="SqlDataSource1" AutoGenerateColumns="False" DataKeyNames="Id">
         <Columns>

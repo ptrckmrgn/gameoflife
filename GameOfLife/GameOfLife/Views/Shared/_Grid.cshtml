@@ -1,6 +1,4 @@
-﻿<script src="~/Scripts/paintGame.js"></script>
-
-<div class="row">
+﻿<div class="row">
     <div class="col-xs-12">
         @if (ViewBag.Count != 0)
         {
@@ -34,7 +32,7 @@
                                         height: @item.Height,
                                         width: @item.Width,
                                         cells: '@item.Cells',
-                                        liveCell: ['#EE4266', '#FFD23F', '#FFFFFF', '#4392F1', '#EDC9FF']
+                                        liveCell: ['#FFFFFF', '#DDDDDD', '#BBBBBB'],
                                     });
                                 </script>
                             </div>
@@ -90,9 +88,9 @@
 
 <script>
     $('.panel-body').on('mouseenter', function() {
-        $(this).find('.template-details-overlay').fadeIn(200);
+        $(this).find('.template-details-overlay').stop().fadeIn(200);
     });
     $('.panel-body').on('mouseleave', function() {
-        $(this).find('.template-details-overlay').fadeOut(200);
+        $(this).find('.template-details-overlay').stop().fadeOut(200);
     });
 </script>

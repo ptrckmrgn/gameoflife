@@ -5,7 +5,7 @@
 .templates {
     .panel {
 	    margin: 0;
-        border-radius: 0;
+        border-radius: 4px;
         .panel-heading {
             text-align: center;
             .panel-title {
@@ -37,17 +37,56 @@
             }
         }
         .panel-footer {
-            padding: 0;
+            padding: 3px;
             .btn {
-                border-radius: 0;
+                border-radius: 0px;
             }
         }
     }
 }
 
-#write-template {
+.template-wrapper {
+    position: relative;
+    height: 70vh;
     width: 100%;
-    cursor: pointer;
+    padding: 5px;
+    background: #333;
+    border: #555 solid 2px;
+    border-radius: 4px;
+    canvas {
+        cursor: pointer;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+    }
+}
+    
+
+.game-area {
+    position: relative;
+    height: 95vh;
+    width: 100%;
+    #game-wrapper {
+        padding: 5px;
+        background: #333;
+        border: #555 solid 2px;
+        border-radius: 4px;
+        height: calc(100% - 85px - 85px);
+        canvas {
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+        }
+    }
+    .game-controls {
+        margin-top: 20px;
+    }
 }
 
 /**************************************

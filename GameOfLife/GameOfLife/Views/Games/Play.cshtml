@@ -4,37 +4,54 @@
     ViewBag.Title = "Play";
 }
 
-<h2>Play</h2>
-
-<a href="" id="play-game" class="btn btn-primary">Start</a>
-<a href="" id="stop-game" class="btn btn-primary disabled">Stop</a>
-
-Speed <input id="speed" type="range" />
-
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <div id="cellstring"></div>
-        <div id="game-wrapper">
-            <canvas id="game"></canvas>
+<div class="game-area">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="pull-center">Play: @Model.Name</h1>
         </div>
-        <script>
-            $('#game').paintgame({
-                height: @Model.Height,
-                width: @Model.Width,
-                cells: "@Model.Cells",
-                liveCell: ['#EE4266', '#FFD23F', '#FFFFFF', '#4392F1', '#EDC9FF']
-            });
-        </script>
+    </div>
+
+    <div id="game-wrapper">
+        <canvas id="game"></canvas>
+    </div>
+
+    <div class="row game-controls hidden-xs">
+        <div class="col-sm-6 col-sm-offset-3 col-xs-6 pull-center">
+            <a href="" id="play-game" class="btn btn-success">Start</a>
+            <a href="" id="stop-game" class="btn btn-danger disabled">Stop</a>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+            @Html.ActionLink("Save to Account", "Save", "SavedGames", new { id = Model.Id }, new { @class = "btn btn-info pull-right" })
+        </div>
+    </div>
+    <div class="row game-controls hidden-sm hidden-md hidden-lg">
+        <div class="col-xs-12 pull-center">
+            <a href="" id="play-game" class="btn btn-success">Start</a>
+            <a href="" id="stop-game" class="btn btn-danger disabled">Stop</a>
+            @Html.ActionLink("Save", "Save", "SavedGames", new { id = Model.Id }, new { @class = "btn btn-info" })
+        </div>
     </div>
 </div>
 
 <script>
+    $('#game').paintgame({
+        height: @Model.Height,
+        width: @Model.Width,
+        cells: "@Model.Cells",
+        liveCell: ['#FFFFFF', '#DDDDDD', '#BBBBBB'],
+        fit: 'both',
+    });
+
     $(document).ready(function()
     {
+        $('html, body').show().delay(1000).animate({
+            scrollTop: $('.game-area').offset().top + 50
+        }, 1000);
+
         var play = $("#play-game"),
-            stop = $("#stop-game"),
-            speed = $('#speed').val(),
-            intervalID;
+        stop = $("#stop-game"),
+        speed = $('#speed').val(),
+        intervalID;
 
         play.click(function(e)
         {
@@ -54,7 +71,8 @@ Speed <input id="speed" type="range" />
                         height: @Model.Height,
                         width: @Model.Width,
                         cells: data,
-                        liveCell: ['#EE4266', '#FFD23F', '#FFFFFF', '#4392F1', '#EDC9FF']
+                        liveCell: ['#FFFFFF', '#DDDDDD', '#BBBBBB'],
+                        fit: 'both',
                     });
                 });
             }, 1000);
