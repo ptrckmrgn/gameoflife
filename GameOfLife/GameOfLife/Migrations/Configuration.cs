@@ -13,57 +13,135 @@ namespace GameOfLife.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(ApplicationDbContext context)
         {
-            // In Startup iam creating first Admin Role and creating a default Admin User    
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
-                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-                
-                // first we create Admin rool   
+                // Create "Admin" role
                 var role = new IdentityRole();
                 role.Name = "Admin";
+
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
                 roleManager.Create(role);
             }
-            if (!context.Users.Any(u => u.UserName == "admin@gmail.com"))
-            {
-                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-                // Here we create a Admin super user who will maintain the website
+            if (!context.Users.Any(u => u.UserName == "ptrckmrgn"))
+            {
+                // Create admin user
                 var user = new ApplicationUser();
-                user.UserName = "admin@gmail.com";
-                user.Email = "admin@gmail.com";
-                string password = "rmit1234";
+                user.UserName = "ptrckmrgn";
+                user.Email = "patrick.morgan@live.com.au";
+                string password = "s3469597";
+
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
                 userManager.Create(user, password);
                 userManager.AddToRole(user.Id, "Admin");
 
-                //var passwordHash = new PasswordHasher();
-                //string password = passwordHash.HashPassword("rmit");
-                //context.Users.AddOrUpdate(u => u.UserName,
-                //    new ApplicationUser
-                //    {
-                //        UserName = "admin@gmail.com",
-                //        Email = "admin@gmail.com",
-                //        PasswordHash = password,
-                //    });
-                //var user = context.Users.Where(u => u.Email.Equals("admin@gmail.com")).FirstOrDefault();
-                //userManager.AddToRole(user.Id, "Admin");
+                // Create basic templates
+                Template template;
+
+                template = new Template
+                {
+                    Name = "Blinker",
+                    Height = 5,
+                    Width = 5,
+                    Cells = "XXXXXXXOXXXXOXXXXOXXXXXXX",
+                    User = user,
+                    UserId = user.Id
+                };
+                context.Templates.Add(template);
+
+                template = new Template
+                {
+                    Name = "Glider",
+                    Height = 20,
+                    Width = 20,
+                    Cells = "XXXXXXXXXXXXXXXXXXXXXOXOXXXXXXXXXXXXXXXXXXOOXXXXXXXXXXXXXXXXXXOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                    User = user,
+                    UserId = user.Id
+                };
+                context.Templates.Add(template);
+
+                template = new Template
+                {
+                    Name = "Toad",
+                    Height = 6,
+                    Width = 6,
+                    Cells = "XXXXXXXXXOXXXOXXOXXOXXOXXXOXXXXXXXXX",
+                    User = user,
+                    UserId = user.Id
+                };
+                context.Templates.Add(template);
+
+                template = new Template
+                {
+                    Name = "Beacon",
+                    Height = 6,
+                    Width = 6,
+                    Cells = "XXXXXXXOOXXXXOOXXXXXXOOXXXXOOXXXXXXX",
+                    User = user,
+                    UserId = user.Id
+                };
+                context.Templates.Add(template);
+
+                template = new Template
+                {
+                    Name = "Lightweight Spaceship (LWSS)",
+                    Height = 7,
+                    Width = 40,
+                    Cells = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXOXXOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXOXXXOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXOOOOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                    User = user,
+                    UserId = user.Id
+                };
+                context.Templates.Add(template);
+
+                template = new Template
+                {
+                    Name = "Pulsar",
+                    Height = 17,
+                    Width = 17,
+                    Cells = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXOOOXXXOOOXXXXXXXXXXXXXXXXXXXXXXXOXXXXOXOXXXXOXXXXOXXXXOXOXXXXOXXXXOXXXXOXOXXXXOXXXXXXOOOXXXOOOXXXXXXXXXXXXXXXXXXXXXXXXXOOOXXXOOOXXXXXXOXXXXOXOXXXXOXXXXOXXXXOXOXXXXOXXXXOXXXXOXOXXXXOXXXXXXXXXXXXXXXXXXXXXXXOOOXXXOOOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                    User = user,
+                    UserId = user.Id
+                };
+                context.Templates.Add(template);
+
+                template = new Template
+                {
+                    Name = "Pentadecathlon",
+                    Height = 18,
+                    Width = 11,
+                    Cells = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXOXXXXXXXXXOOOXXXXXXXOOOOOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXOOOOOXXXXXXXOOOXXXXXXXXXOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                    User = user,
+                    UserId = user.Id
+                };
+                context.Templates.Add(template);
+
+                template = new Template
+                {
+                    Name = "Gosper Glider Gun",
+                    Height = 40,
+                    Width = 40,
+                    Cells = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXOXOXXXXXXXXXXXXXXXXXXXXXXXXXXXOOXXXXXXOOXXXXXXXXXXXXXOOXXXXXXXXXXXXXXOXXXOXXXXOOXXXXXXXXXXXXXOOXXXOOXXXXXXXXOXXXXXOXXXOOXXXXXXXXXXXXXXXXXXOOXXXXXXXXOXXXOXOOXXXXOXOXXXXXXXXXXXXXXXXXXXXXXXXXOXXXXXOXXXXXXXOXXXXXXXXXXXXXXXXXXXXXXXXXXOXXXOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXOOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                    User = user,
+                    UserId = user.Id
+                };
+                context.Templates.Add(template);
+
+                template = new Template
+                {
+                    Name = "YOLO",
+                    Height = 3,
+                    Width = 3,
+                    Cells = "XXXXOXXXX",
+                    User = user,
+                    UserId = user.Id
+                };
+                context.Templates.Add(template);
             }
-
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
         }
     }
 }

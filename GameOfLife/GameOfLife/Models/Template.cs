@@ -28,6 +28,17 @@ namespace GameOfLife.Models
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
+
+        //// Constructor
+        //public Template(string name, int height, int width, string cells, ApplicationUser user)
+        //{
+        //    this.Name = name;
+        //    this.Height = height;
+        //    this.Width = width;
+        //    this.Cells = cells;
+        //    this.User = user;
+        //    this.UserId = User.Id;
+        //}
     }
 
     public class TemplateValidator : AbstractValidator<Template>

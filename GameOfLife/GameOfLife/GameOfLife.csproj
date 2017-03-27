@@ -242,12 +242,17 @@
     <Content Include="Admin\Templates.aspx" />
     <Content Include="Admin\Upload.aspx" />
     <Content Include="Admin\Users.aspx" />
+    <Content Include="App_Data\GameOfLife.mdf" />
+    <Content Include="App_Data\GameOfLife_log.ldf">
+      <DependentUpon>GameOfLife.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\img\cloud1.png" />
     <Content Include="Content\img\cloud2.png" />
     <Content Include="Content\img\cloud3.png" />
     <Content Include="Content\img\cloud4.png" />
     <Content Include="Content\style.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Fonts\fontawesome-webfont.svg" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
@@ -261,7 +266,9 @@
     <Content Include="Resources\sass\style.scss" />
     <Content Include="Resources\js\libs\jquery.validate.js" />
     <Content Include="Scripts\script.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -292,15 +299,18 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <Content Include="Admin\Admin.Master" />
+    <Content Include="Fonts\fontawesome-webfont.eot" />
+    <Content Include="Fonts\fontawesome-webfont.ttf" />
+    <Content Include="Fonts\fontawesome-webfont.woff" />
+    <Content Include="Fonts\fontawesome-webfont.woff2" />
+    <Content Include="Fonts\FontAwesome.otf" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Templates\Create.cshtml" />
     <Content Include="Views\Templates\Delete.cshtml" />
@@ -325,6 +335,8 @@
     <Content Include="Resources\sass\Components\_clouds.scss" />
     <Content Include="Resources\sass\Components\_intro.scss" />
     <Content Include="Resources\sass\Components\_webforms.scss" />
+    <None Include="Properties\PublishProfiles\GameOfLife-ptrckmrgn - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ptrckmrgn - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608151235495_Initial.resx">
