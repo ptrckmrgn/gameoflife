@@ -1,6 +1,7 @@
 ﻿using FluentValidation.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -31,6 +32,10 @@ namespace GameOfLife
                 CdnPath = "http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.1.min.js",
                 CdnDebugPath = "http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.1.js"
             });
+
+            var configuration = new Migrations.Configuration();
+            var migrator = new DbMigrator(configuration);
+            migrator.Update();
         }
     }
 }

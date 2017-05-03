@@ -17,7 +17,7 @@ namespace GameOfLife.Controllers
             // Load quote into viewbag
             IQueryable<Quote> quotes = db.Quotes.Where(q => q.Id > 0);
             int rnd = new Random().Next(1, quotes.Count() + 1);
-            ViewBag.Quote = quotes.Where(q => q.Id == rnd).First();
+            ViewBag.Quote = quotes.Where(q => q.Id == rnd).FirstOrDefault();
 
             // Get current active games count
             ViewBag.ActiveGames = SessionHelper.CountGamesInSession();

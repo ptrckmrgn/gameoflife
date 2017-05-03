@@ -141,6 +141,65 @@ namespace GameOfLife.Migrations
                     UserId = user.Id
                 };
                 context.Templates.Add(template);
+
+                // Create quotes
+                Quote quote;
+
+                quote = new Quote
+                {
+                    Body = "Life is really simple, but we insist on making it complicated.",
+                    Author = "Confucius"
+                };
+                context.Quotes.Add(quote);
+
+                quote = new Quote
+                {
+                    Body = "Life is not a problem to be solved, but a reality to be experienced.",
+                    Author = "Soren Kierkegaard"
+                };
+                context.Quotes.Add(quote);
+
+                quote = new Quote
+                {
+                    Body = "Life is a tragedy when seen in close-up, but a comedy in long-shot.",
+                    Author = "Charlie Chaplin"
+                };
+                context.Quotes.Add(quote);
+
+                quote = new Quote
+                {
+                    Body = "In the end, it's not the years in your life that count. It's the life in your years.",
+                    Author = "Abraham Lincoln"
+                };
+                context.Quotes.Add(quote);
+
+                quote = new Quote
+                {
+                    Body = "We do not remember days, we remember moments.",
+                    Author = "Cesare Pavese"
+                };
+                context.Quotes.Add(quote);
+
+                quote = new Quote
+                {
+                    Body = "Mama always said life was like a box of chocolates. You never know what you're gonna get.",
+                    Author = "Forrest Gump"
+                };
+                context.Quotes.Add(quote);
+
+                quote = new Quote
+                {
+                    Body = "Life is what happens while you are busy making other plans.",
+                    Author = "John Lenon"
+                };
+                context.Quotes.Add(quote);
+
+                quote = new Quote
+                {
+                    Body = "A man who dares to waste one hour of time has not discovered the value of life.",
+                    Author = "Charles Darwin"
+                };
+                context.Quotes.Add(quote);
             }
         }
     }
